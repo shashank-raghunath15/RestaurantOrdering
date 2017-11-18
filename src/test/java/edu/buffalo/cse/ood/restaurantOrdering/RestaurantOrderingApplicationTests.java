@@ -1,4 +1,4 @@
-package edu.buffalo.cse.ood.RestaurantOrdering;
+package edu.buffalo.cse.ood.restaurantOrdering;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
