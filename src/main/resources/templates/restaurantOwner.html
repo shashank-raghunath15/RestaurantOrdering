@@ -11,8 +11,9 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Hello Owner</h1>
+		<p th:text="${session.person.name}" th:unless="${session == null}"> . </p>
 		<a href="/logout">Logout</a>
+		<a href="/restaurantOwner/addItemRestaurant">Add Item</a>
 	</div>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"

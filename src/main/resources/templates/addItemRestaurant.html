@@ -11,8 +11,14 @@
 </head>
 <body>
 	<div class="container">
-		<p th:utext="${error}">404</p>
-		<a href="/">Back to Home Page</a>
+	<div th:each="item : ${items}">
+	<form method="post" action="/restaurantOwner/addItemRestaurant">
+	<input type="hidden" th:value="${item.id}" name="id"></input><br/> 
+	<p th:text="${item.name}"></p><br/>
+	<p th:text="${item.calories}"></p><br/>
+	<input type="submit" value="Add"></input><br/> 
+	</form>
+	</div>
 	</div>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
