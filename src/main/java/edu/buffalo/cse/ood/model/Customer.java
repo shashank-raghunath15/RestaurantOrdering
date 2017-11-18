@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @Scope("prototype")
 public class Customer extends Person{
 
-	@OneToMany
+	@OneToMany(mappedBy="customer")
 	private List<Order> orders = new ArrayList<Order>();
 	
 }

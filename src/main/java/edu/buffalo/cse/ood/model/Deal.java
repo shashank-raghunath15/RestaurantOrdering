@@ -4,19 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Component
-@Scope("prototype")
-public class Deal {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Deal {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@ManyToOne
+	@JoinColumn(name="restaurantId")
+	private Restaurant restaurant;
 }

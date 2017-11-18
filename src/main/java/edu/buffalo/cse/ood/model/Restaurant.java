@@ -8,8 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,14 +28,15 @@ public class Restaurant {
 	private long id;
 	private String name;
 	private String address;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name="ownerId")
 	private RestaurantOwner owner;
-	@OneToMany
+	@OneToMany(mappedBy="restaurant")
 	private List<Deal> availableDeals = new ArrayList<Deal>();
 	@OneToMany
 	private List<Item> availableItems = new ArrayList<Item>();
 	@ElementCollection(targetClass= Day.class)
-	private List<Day> openDays = new ArrayList<Day>();
-	@OneToMany
+	private List<Day> closedDays = new ArrayList<Day>();
+	@OneToMany(mappedBy="restaurant")
 	private List<Order> allOrders = new ArrayList<Order>();
 }
