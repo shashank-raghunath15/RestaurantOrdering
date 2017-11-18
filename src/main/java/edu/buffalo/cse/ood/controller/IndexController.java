@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import edu.buffalo.cse.ood.model.Admin;
@@ -23,41 +24,27 @@ public class IndexController extends edu.buffalo.cse.ood.controller.Controller {
 	}
 
 	@PostMapping("/login")
-	public ModelAndView login(Login login, HttpSession session) {
+	public ModelAndView login(Login login, HttpSession session, RedirectAttributes attributes) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(session.getAttribute("person")!=null){
-			Person person = (Person) session.getAttribute("person");
-			if (person instanceof Admin) {
-				modelAndView.setViewName("admin");
-				return modelAndView;
-			} else if (person instanceof RestaurantOwner) {
-				modelAndView.setViewName("restaurantOwner");
-				return modelAndView;
-			} else {
-				modelAndView.setViewName("customer");
-				return modelAndView;
-			}
-
-		}
-		Person person = getLoginService().login(login);
-		if (person == null) {
-			modelAndView.setView(new RedirectView("error"));
+		Person person = null;
+		if (session.getAttribute("person") != null) {
+			person = (Person) session.getAttribute("person");
+		} else if (getLoginService().login(login) != null) {
+			person = getLoginService().login(login);
+			session.setAttribute("person", person);
+		} else {
+			modelAndView.setView(new RedirectView("/"));
+			attributes.addFlashAttribute("msg", "Login Failed");
 			return modelAndView;
 		}
 		if (person instanceof Admin) {
-			modelAndView.setViewName("admin");
-			session.setAttribute("person", person);
-			return modelAndView;
+			modelAndView.setView(new RedirectView("admin/"));
 		} else if (person instanceof RestaurantOwner) {
-			modelAndView.setViewName("restaurantOwner");
-			session.setAttribute("person", person);
-			return modelAndView;
+			modelAndView.setView(new RedirectView("restaurantOwner/"));
 		} else {
-			modelAndView.setViewName("customer");
-			session.setAttribute("person", person);
-			return modelAndView;
+			modelAndView.setView(new RedirectView("customer/"));
 		}
-
+		return modelAndView;
 	}
 
 	@PostMapping("/register")
