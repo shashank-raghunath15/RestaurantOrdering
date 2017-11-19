@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
 @Controller
@@ -27,7 +28,8 @@ public class RestaurantOwnerController extends edu.buffalo.cse.ood.restaurantOrd
 		ModelAndView modelAndView = new ModelAndView("addItemRestaurant");
 		RestaurantOwner restaurantOwner = (RestaurantOwner) session.getAttribute("person");
 		List<Item> items = getItemService().getAllItems();
-		items.removeAll(restaurantOwner.getRestaurant().getAvailableItems());
+		Restaurant restaurant = getRestaurantService().getByOwnerId(restaurantOwner.getId());
+		items.removeAll(restaurant.getAvailableItems());
 		modelAndView.addObject("items", items);
 		return modelAndView;
 	}
@@ -35,8 +37,9 @@ public class RestaurantOwnerController extends edu.buffalo.cse.ood.restaurantOrd
 	@PostMapping("/addItemRestaurant")
 	public ModelAndView addItemRestaurant(Long id, HttpSession session) {
 		RestaurantOwner restaurantOwner = (RestaurantOwner) session.getAttribute("person");
-		restaurantOwner.getRestaurant().getAvailableItems().add(getItemService().getItem(id));
-		getRestaurantService().updateRestaurant(restaurantOwner.getRestaurant());
+		Restaurant restaurant = getRestaurantService().getByOwnerId(restaurantOwner.getId());
+		restaurant.getAvailableItems().add(getItemService().getItem(id));
+		getRestaurantService().updateRestaurant(restaurant);
 		return new ModelAndView("restaurantOwner");
 	}
 }

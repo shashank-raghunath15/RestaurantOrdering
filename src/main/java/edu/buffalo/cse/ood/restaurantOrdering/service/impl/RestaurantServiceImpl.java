@@ -8,7 +8,7 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantService;
 
 @Service
-public class RestaurantServiceImpl extends ServiceImpl implements RestaurantService{
+public class RestaurantServiceImpl extends ServiceImpl implements RestaurantService {
 
 	@Override
 	public void addRestaurant(Restaurant restaurant) {
@@ -16,8 +16,8 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 	}
 
 	@Override
-	public Restaurant getRestaurant(Restaurant restaurant) {
-		return getRestaurantRepository().getOne(restaurant.getId());
+	public Restaurant getRestaurant(Long id) {
+		return getRestaurantRepository().getOne(id);
 	}
 
 	@Override
@@ -33,7 +33,12 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 	@Override
 	public void deleteRestaurant(Restaurant restaurant) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public Restaurant getByOwnerId(Long id) {
+		return getRestaurantRepository().findByOwnerId(id);
 	}
 
 }

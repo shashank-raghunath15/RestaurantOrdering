@@ -10,9 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -30,8 +29,7 @@ public class Restaurant {
 	private long id;
 	private String name;
 	private String address;
-	@ManyToOne
-	@JoinColumn(name="ownerId")
+	@OneToOne
 	private RestaurantOwner owner;
 	@OneToMany(mappedBy="restaurant")
 	private List<Deal> availableDeals = new ArrayList<Deal>();
