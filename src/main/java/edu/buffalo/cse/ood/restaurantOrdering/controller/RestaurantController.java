@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
@@ -22,22 +23,22 @@ public class RestaurantController extends Controller{
 	}
 
 	@GetMapping("/{id}")
-	public Restaurant getRestaurant(@RequestParam(value = "id") Long id) {
+	public Restaurant getRestaurant(@PathVariable Long id) {
 		return getRestaurantService().getRestaurantById(id);
 	}
 
 	@PostMapping("/")
-	public void addRestaurant(Restaurant Restaurant) {
+	public void addRestaurant(@RequestBody Restaurant Restaurant) {
 		getRestaurantService().addRestaurant(Restaurant);
 	}
 
 	@PutMapping("/")
-	public void updateRestaurant(Restaurant Restaurant) {
+	public void updateRestaurant(@RequestBody Restaurant Restaurant) {
 		getRestaurantService().updateRestaurant(Restaurant);
 	}
 
 	@DeleteMapping("/")
-	public void deleteRestaurant(@RequestParam(value = "id") Long id) {
+	public void deleteRestaurant(@PathVariable Long id) {
 		getRestaurantService().deleteRestaurant(id);
 	}
 }

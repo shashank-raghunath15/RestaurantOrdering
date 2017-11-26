@@ -29,7 +29,7 @@ public class AdminController extends Controller {
 	}
 	
 	@PostMapping("/login")
-	public Long login(Login login) {
+	public Long login(@RequestBody Login login) {
 		return getAdminService().login(login);
 	}
 

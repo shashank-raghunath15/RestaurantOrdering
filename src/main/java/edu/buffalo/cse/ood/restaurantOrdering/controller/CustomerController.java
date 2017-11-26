@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
@@ -23,27 +24,27 @@ public class CustomerController extends Controller {
 	}
 
 	@GetMapping("/{id}")
-	public Customer getCustomer(@RequestParam(value = "id") Long id) {
+	public Customer getCustomer(@PathVariable Long id) {
 		return getCustomerService().getCustomerById(id);
 	}
 	
 	@PostMapping("/login")
-	public Long login(Login login) {
+	public Long login(@RequestBody Login login) {
 		return getCustomerService().login(login);
 	}
 
 	@PostMapping("/")
-	public void addCustomer(Customer customer) {
+	public void addCustomer(@RequestBody Customer customer) {
 		getCustomerService().addCustomer(customer);
 	}
 
 	@PutMapping("/")
-	public void updateCustomer(Customer customer) {
+	public void updateCustomer(@RequestBody Customer customer) {
 		getCustomerService().updateCustomer(customer);
 	}
 
 	@DeleteMapping("/")
-	public void deleteCustomer(@RequestParam(value = "id") Long id) {
+	public void deleteCustomer(@PathVariable Long id) {
 		getCustomerService().deleteCustomer(id);
 	}
 }

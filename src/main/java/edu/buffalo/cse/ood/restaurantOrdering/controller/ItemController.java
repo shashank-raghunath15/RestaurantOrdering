@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 
 @RestController
 @RequestMapping("/item")
-public class ItemController extends Controller{
+public class ItemController extends Controller {
 
 	@GetMapping("/")
 	public List<Item> getAllItems() {
@@ -22,22 +23,22 @@ public class ItemController extends Controller{
 	}
 
 	@GetMapping("/{id}")
-	public Item getItem(@RequestParam(value = "id") Long id) {
+	public Item getItem(@PathVariable Long id) {
 		return getItemService().getItemById(id);
 	}
 
 	@PostMapping("/")
-	public void addItem(Item item) {
+	public void addItem(@RequestBody Item item) {
 		getItemService().addItem(item);
 	}
 
 	@PutMapping("/")
-	public void updateItem(Item item) {
+	public void updateItem(@RequestBody Item item) {
 		getItemService().updateItem(item);
 	}
 
 	@DeleteMapping("/")
-	public void deleteItem(@RequestParam(value = "id") Long id) {
+	public void deleteItem(@PathVariable Long id) {
 		getItemService().deleteItem(id);
 	}
 }
