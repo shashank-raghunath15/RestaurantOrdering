@@ -21,8 +21,8 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void addOrder(Order order) {
-		getOrderRepository().save(order);
+	public Order addOrder(Order order) {
+		return getOrderRepository().save(order);
 	}
 
 	@Override

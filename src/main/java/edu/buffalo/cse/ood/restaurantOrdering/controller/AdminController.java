@@ -27,15 +27,15 @@ public class AdminController extends Controller {
 	public Admin getAdmin(@PathVariable Long id) {
 		return getAdminService().getAdminById(id);
 	}
-	
+
 	@PostMapping("/login")
 	public Long login(@RequestBody Login login) {
 		return getAdminService().login(login);
 	}
 
 	@PostMapping("/")
-	public void addAdmin(@RequestBody Admin admin) {
-		getAdminService().addAdmin(admin);
+	public Admin addAdmin(@RequestBody Admin admin) {
+		return getAdminService().addAdmin(admin);
 	}
 
 	@PutMapping("/")

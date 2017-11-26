@@ -7,4 +7,6 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long>{
 
 	public Restaurant findByOwnerId(Long id);
+
+	public Restaurant findByName(String name);
 }

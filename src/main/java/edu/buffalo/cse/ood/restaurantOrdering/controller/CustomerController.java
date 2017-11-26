@@ -34,8 +34,8 @@ public class CustomerController extends Controller {
 	}
 
 	@PostMapping("/")
-	public void addCustomer(@RequestBody Customer customer) {
-		getCustomerService().addCustomer(customer);
+	public Customer addCustomer(@RequestBody Customer customer) {
+		return getCustomerService().addCustomer(customer);
 	}
 
 	@PutMapping("/")

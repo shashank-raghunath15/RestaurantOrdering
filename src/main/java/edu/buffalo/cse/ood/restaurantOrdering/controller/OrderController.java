@@ -28,8 +28,8 @@ public class OrderController extends Controller {
 	}
 
 	@PostMapping("/")
-	public void addOrder(@RequestBody Order order) {
-		getOrderService().addOrder(order);
+	public Order addOrder(@RequestBody Order order) {
+		return getOrderService().addOrder(order);
 	}
 
 	@PutMapping("/")

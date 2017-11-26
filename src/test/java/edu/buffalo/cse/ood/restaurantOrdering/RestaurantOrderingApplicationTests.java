@@ -11,6 +11,7 @@ public class RestaurantOrderingApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

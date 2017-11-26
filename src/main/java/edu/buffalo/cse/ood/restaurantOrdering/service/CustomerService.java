@@ -8,7 +8,7 @@ public interface CustomerService extends LoginService{
 
 	public List<Customer> getAllCustomers();
 	public Customer getCustomerById(Long id);
-	public void addCustomer(Customer customer);
+	public Customer addCustomer(Customer customer);
 	public void updateCustomer(Customer customer);
 	public void deleteCustomer(Long id);
 }

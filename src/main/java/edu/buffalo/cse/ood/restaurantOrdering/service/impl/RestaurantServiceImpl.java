@@ -20,8 +20,8 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 	}
 
 	@Override
-	public void addRestaurant(Restaurant Restaurant) {
-		getRestaurantRepository().save(Restaurant);
+	public Restaurant addRestaurant(Restaurant Restaurant) {
+		return getRestaurantRepository().save(Restaurant);
 	}
 
 	@Override
@@ -32,6 +32,11 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 	@Override
 	public void deleteRestaurant(Long id) {
 		getRestaurantRepository().delete(id);
+	}
+
+	@Override
+	public Restaurant getRestaurantByName(String name) {
+		return getRestaurantRepository().findByName(name);
 	}
 
 }

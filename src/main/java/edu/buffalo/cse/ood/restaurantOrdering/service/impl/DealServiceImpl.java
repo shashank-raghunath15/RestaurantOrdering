@@ -21,8 +21,8 @@ public class DealServiceImpl extends ServiceImpl implements DealService{
 	}
 
 	@Override
-	public void addDeal(Deal deal) {
-		getDealRepository().save(deal);
+	public Deal addDeal(Deal deal) {
+		return getDealRepository().save(deal);
 	}
 
 	@Override

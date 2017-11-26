@@ -23,9 +23,9 @@ public class AdminServiceImpl extends ServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void addAdmin(Admin admin) {
+	public Admin addAdmin(Admin admin) {
 		admin.setPassword(BCrypt.hashpw(admin.getPassword(), BCrypt.gensalt()));
-		getAdminRepository().save(admin);
+		return getAdminRepository().save(admin);
 	}
 
 	@Override

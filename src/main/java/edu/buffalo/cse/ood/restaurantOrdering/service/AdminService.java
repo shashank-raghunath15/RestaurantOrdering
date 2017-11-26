@@ -9,7 +9,7 @@ public interface AdminService extends LoginService{
 
 	public List<Admin> getAllAdmins();
 	public Admin getAdminById(Long id);
-	public void addAdmin(Admin admin);
+	public Admin addAdmin(Admin admin);
 	public void updateAdmin(Admin admin);
 	public void deleteAdmin(Long id);
 	public Long login(Login login);

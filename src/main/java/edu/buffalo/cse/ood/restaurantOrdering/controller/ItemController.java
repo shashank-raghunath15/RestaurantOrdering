@@ -28,8 +28,8 @@ public class ItemController extends Controller {
 	}
 
 	@PostMapping("/")
-	public void addItem(@RequestBody Item item) {
-		getItemService().addItem(item);
+	public Item addItem(@RequestBody Item item) {
+		return getItemService().addItem(item);
 	}
 
 	@PutMapping("/")

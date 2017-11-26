@@ -6,7 +6,7 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Deal;
 
 public interface DealService {
 
-	public void addDeal(Deal Deal);
+	public Deal addDeal(Deal Deal);
 
 	public Deal getDealById(Long id);
 

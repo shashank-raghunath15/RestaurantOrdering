@@ -8,7 +8,7 @@ public interface RestaurantOwnerService extends LoginService{
 	
 	public List<RestaurantOwner> getAllRestaurantOwners();
 	public RestaurantOwner getRestaurantOwnerById(Long id);
-	public void addRestaurantOwner(RestaurantOwner restaurantOwner);
+	public RestaurantOwner addRestaurantOwner(RestaurantOwner restaurantOwner);
 	public void updateRestaurantOwner(RestaurantOwner restaurantOwner);
 	public void deleteRestaurantOwner(Long id);
 }

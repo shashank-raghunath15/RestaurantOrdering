@@ -27,9 +27,14 @@ public class RestaurantController extends Controller{
 		return getRestaurantService().getRestaurantById(id);
 	}
 
+	@GetMapping("/name/{name}")
+	public Restaurant getRestaurantByName(@PathVariable String name){
+		return getRestaurantService().getRestaurantByName(name);
+	}
+	
 	@PostMapping("/")
-	public void addRestaurant(@RequestBody Restaurant Restaurant) {
-		getRestaurantService().addRestaurant(Restaurant);
+	public Restaurant addRestaurant(@RequestBody Restaurant Restaurant) {
+		return getRestaurantService().addRestaurant(Restaurant);
 	}
 
 	@PutMapping("/")

@@ -6,7 +6,7 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 
 public interface ItemService {
 
-	public void addItem(Item Item);
+	public Item addItem(Item Item);
 
 	public Item getItemById(Long id);
 

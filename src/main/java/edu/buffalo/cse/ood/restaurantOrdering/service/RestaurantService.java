@@ -9,7 +9,8 @@ public interface RestaurantService {
 
 	public List<Restaurant> getAllRestaurants();
 	public Restaurant getRestaurantById(Long id);
-	public void addRestaurant(Restaurant restaurant);
+	public Restaurant addRestaurant(Restaurant restaurant);
 	public void updateRestaurant(Restaurant restaurant);
 	public void deleteRestaurant(Long id);
+	public Restaurant getRestaurantByName(String name);
 }

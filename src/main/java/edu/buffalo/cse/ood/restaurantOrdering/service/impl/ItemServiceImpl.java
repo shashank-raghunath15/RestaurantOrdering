@@ -21,8 +21,8 @@ public class ItemServiceImpl extends ServiceImpl implements ItemService {
 	}
 
 	@Override
-	public void addItem(Item item) {
-		getItemRepository().save(item);
+	public Item addItem(Item item) {
+		return getItemRepository().save(item);
 	}
 
 	@Override

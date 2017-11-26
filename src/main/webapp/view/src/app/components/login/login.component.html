@@ -1,0 +1,10 @@
+<form class="form-signin" [formGroup]="login" (ngSubmit)="loginAdmin(login)">
+	<label for="username" class="sr-only">Username:</label> <input
+		type="text" formControlName="username"
+		class="form-control" placeholder="username"> <label
+		for="password" class="sr-only">Password:</label> <input
+		type="password" formControlName="password"
+		class="form-control" placeholder="password">
+	<button type="submit" class="btn">Login</button>
+
+</form>

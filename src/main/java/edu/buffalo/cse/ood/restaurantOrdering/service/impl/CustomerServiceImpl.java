@@ -22,9 +22,9 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public void addCustomer(Customer customer) {
+	public Customer addCustomer(Customer customer) {
 		customer.setPassword(BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt()));
-		getCustomerRepository().save(customer);
+		return getCustomerRepository().save(customer);
 	}
 
 	@Override

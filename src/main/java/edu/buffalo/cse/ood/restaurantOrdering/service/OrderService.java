@@ -5,7 +5,7 @@ import java.util.List;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Order;
 
 public interface OrderService {
-	public void addOrder(Order Order);
+	public Order addOrder(Order Order);
 
 	public Order getOrderById(Long id);
 

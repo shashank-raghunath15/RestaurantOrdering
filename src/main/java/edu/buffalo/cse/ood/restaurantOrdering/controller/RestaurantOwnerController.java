@@ -34,8 +34,8 @@ public class RestaurantOwnerController extends Controller {
 	}
 
 	@PostMapping("/")
-	public void addRestaurantOwner(@RequestBody RestaurantOwner restaurantOwner) {
-		getRestaurantOwnerService().addRestaurantOwner(restaurantOwner);
+	public RestaurantOwner addRestaurantOwner(@RequestBody RestaurantOwner restaurantOwner) {
+		return getRestaurantOwnerService().addRestaurantOwner(restaurantOwner);
 	}
 
 	@PutMapping("/")

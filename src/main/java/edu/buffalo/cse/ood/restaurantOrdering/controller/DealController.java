@@ -28,8 +28,8 @@ public class DealController extends Controller{
 	}
 
 	@PostMapping("/")
-	public void addDeal(@RequestBody Deal deal) {
-		getDealService().addDeal(deal);
+	public Deal addDeal(@RequestBody Deal deal) {
+		return getDealService().addDeal(deal);
 	}
 
 	@PutMapping("/")

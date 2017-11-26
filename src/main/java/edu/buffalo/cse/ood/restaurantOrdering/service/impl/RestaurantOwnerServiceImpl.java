@@ -23,9 +23,9 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 	}
 
 	@Override
-	public void addRestaurantOwner(RestaurantOwner restaurantOwner) {
+	public RestaurantOwner addRestaurantOwner(RestaurantOwner restaurantOwner) {
 		restaurantOwner.setPassword(BCrypt.hashpw(restaurantOwner.getPassword(), BCrypt.gensalt()));
-		getRestaurantOwnerRepository().save(restaurantOwner);
+		return getRestaurantOwnerRepository().save(restaurantOwner);
 	}
 
 	@Override
