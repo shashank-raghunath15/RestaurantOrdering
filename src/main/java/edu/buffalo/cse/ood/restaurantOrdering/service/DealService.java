@@ -8,11 +8,11 @@ public interface DealService {
 
 	public void addDeal(Deal Deal);
 
-	public Deal getDeal(Deal Deal);
+	public Deal getDealById(Long id);
 
 	public List<Deal> getAllDeals();
 
 	public void updateDeal(Deal Deal);
 
-	public void deleteDeal(Deal Deal);
+	public void deleteDeal(Long id);
 }

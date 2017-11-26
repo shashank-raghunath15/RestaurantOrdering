@@ -9,36 +9,29 @@ import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantService;
 
 @Service
 public class RestaurantServiceImpl extends ServiceImpl implements RestaurantService {
-
-	@Override
-	public void addRestaurant(Restaurant restaurant) {
-		getRestaurantRepository().save(restaurant);
-	}
-
-	@Override
-	public Restaurant getRestaurant(Long id) {
-		return getRestaurantRepository().getOne(id);
-	}
-
 	@Override
 	public List<Restaurant> getAllRestaurants() {
 		return getRestaurantRepository().findAll();
 	}
 
 	@Override
-	public void updateRestaurant(Restaurant restaurant) {
-		getRestaurantRepository().save(restaurant);
+	public Restaurant getRestaurantById(Long id) {
+		return getRestaurantRepository().getOne(id);
 	}
 
 	@Override
-	public void deleteRestaurant(Restaurant restaurant) {
-		// TODO Auto-generated method stub
-
+	public void addRestaurant(Restaurant Restaurant) {
+		getRestaurantRepository().save(Restaurant);
 	}
 
 	@Override
-	public Restaurant getByOwnerId(Long id) {
-		return getRestaurantRepository().findByOwnerId(id);
+	public void updateRestaurant(Restaurant Restaurant) {
+		getRestaurantRepository().save(Restaurant);
+	}
+
+	@Override
+	public void deleteRestaurant(Long id) {
+		getRestaurantRepository().delete(id);
 	}
 
 }

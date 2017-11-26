@@ -2,44 +2,42 @@ package edu.buffalo.cse.ood.restaurantOrdering.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
-import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
-@Controller
+@RestController
 @RequestMapping("/restaurantOwner")
-public class RestaurantOwnerController extends edu.buffalo.cse.ood.restaurantOrdering.controller.Controller {
+public class RestaurantOwnerController extends Controller {
 
 	@GetMapping("/")
-	public ModelAndView restaurantOwner(HttpSession session) {
-		return new ModelAndView("restaurantOwner");
+	public List<RestaurantOwner> getAllRestaurantOwners() {
+		return getRestaurantOwnerService().getAllRestaurantOwners();
 	}
 
-	@GetMapping("/addItemRestaurant")
-	public ModelAndView addItemRestaurant(HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("addItemRestaurant");
-		RestaurantOwner restaurantOwner = (RestaurantOwner) session.getAttribute("person");
-		List<Item> items = getItemService().getAllItems();
-		Restaurant restaurant = getRestaurantService().getByOwnerId(restaurantOwner.getId());
-		items.removeAll(restaurant.getAvailableItems());
-		modelAndView.addObject("items", items);
-		return modelAndView;
+	@GetMapping("/{id}")
+	public RestaurantOwner getRestaurantOwner(@RequestParam(value = "id") Long id) {
+		return getRestaurantOwnerService().getRestaurantOwnerById(id);
 	}
 
-	@PostMapping("/addItemRestaurant")
-	public ModelAndView addItemRestaurant(Long id, HttpSession session) {
-		RestaurantOwner restaurantOwner = (RestaurantOwner) session.getAttribute("person");
-		Restaurant restaurant = getRestaurantService().getByOwnerId(restaurantOwner.getId());
-		restaurant.getAvailableItems().add(getItemService().getItem(id));
-		getRestaurantService().updateRestaurant(restaurant);
-		return new ModelAndView("restaurantOwner");
+	@PostMapping("/")
+	public void addRestaurantOwner(RestaurantOwner restaurantOwner) {
+		getRestaurantOwnerService().addRestaurantOwner(restaurantOwner);
+	}
+
+	@PutMapping("/")
+	public void updateRestaurantOwner(RestaurantOwner restaurantOwner) {
+		getRestaurantOwnerService().updateRestaurantOwner(restaurantOwner);
+	}
+
+	@DeleteMapping("/")
+	public void deleteRestaurantOwner(@RequestParam(value = "id") Long id) {
+		getRestaurantOwnerService().deleteRestaurantOwner(id);
 	}
 }

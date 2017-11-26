@@ -11,33 +11,28 @@ import edu.buffalo.cse.ood.restaurantOrdering.service.DealService;
 public class DealServiceImpl extends ServiceImpl implements DealService{
 
 	@Override
-	public void addDeal(Deal Deal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Deal getDeal(Deal Deal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Deal> getAllDeals() {
-		// TODO Auto-generated method stub
-		return null;
+		return getDealRepository().findAll();
 	}
 
 	@Override
-	public void updateDeal(Deal Deal) {
-		// TODO Auto-generated method stub
-		
+	public Deal getDealById(Long id) {
+		return getDealRepository().getOne(id);
 	}
 
 	@Override
-	public void deleteDeal(Deal Deal) {
-		// TODO Auto-generated method stub
-		
+	public void addDeal(Deal deal) {
+		getDealRepository().save(deal);
+	}
+
+	@Override
+	public void updateDeal(Deal deal) {
+		getDealRepository().save(deal);
+	}
+
+	@Override
+	public void deleteDeal(Long id) {
+		getDealRepository().delete(id);
 	}
 
 }

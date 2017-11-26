@@ -16,8 +16,23 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 	}
 
 	@Override
-	public RestaurantOwner getRestaurantOwner(Long id) {
+	public RestaurantOwner getRestaurantOwnerById(Long id) {
 		return getRestaurantOwnerRepository().getOne(id);
+	}
+
+	@Override
+	public void addRestaurantOwner(RestaurantOwner restaurantOwner) {
+		getRestaurantOwnerRepository().save(restaurantOwner);
+	}
+
+	@Override
+	public void updateRestaurantOwner(RestaurantOwner restaurantOwner) {
+		getRestaurantOwnerRepository().save(restaurantOwner);
+	}
+
+	@Override
+	public void deleteRestaurantOwner(Long id) {
+		getRestaurantOwnerRepository().delete(id);
 	}
 
 }

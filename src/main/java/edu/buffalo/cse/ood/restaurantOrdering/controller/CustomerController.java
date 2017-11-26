@@ -1,35 +1,43 @@
 package edu.buffalo.cse.ood.restaurantOrdering.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
-import edu.buffalo.cse.ood.restaurantOrdering.model.Order;
 
-@Controller
+@RestController
 @RequestMapping("/customer")
-public class CustomerController extends edu.buffalo.cse.ood.restaurantOrdering.controller.Controller {
+public class CustomerController extends Controller {
 
 	@GetMapping("/")
-	public ModelAndView customer() {
-		ModelAndView modelAndView = new ModelAndView("customer");
-		modelAndView.addObject("restaurants", getRestaurantService().getAllRestaurants());
-		return modelAndView;
+	public List<Customer> getAllCustomers() {
+		return getCustomerService().getAllCustomers();
 	}
 
-	@PostMapping("/order")
-	public ModelAndView order(Long id, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView("selectItems");
-		Order order = getApplicationContext().getBean(Order.class);
-		Customer customer = (Customer) session.getAttribute("person");
-		order.setCustomer(customer);
-		order.setRestaurant(getRestaurantService().getRestaurant(id));
-		modelAndView.addObject("order", order);
-		return modelAndView;
+	@GetMapping("/{id}")
+	public Customer getCustomer(@RequestParam(value = "id") Long id) {
+		return getCustomerService().getCustomerById(id);
+	}
+
+	@PostMapping("/")
+	public void addCustomer(Customer customer) {
+		getCustomerService().addCustomer(customer);
+	}
+
+	@PutMapping("/")
+	public void updateCustomer(Customer customer) {
+		getCustomerService().updateCustomer(customer);
+	}
+
+	@DeleteMapping("/")
+	public void deleteCustomer(@RequestParam(value = "id") Long id) {
+		getCustomerService().deleteCustomer(id);
 	}
 }

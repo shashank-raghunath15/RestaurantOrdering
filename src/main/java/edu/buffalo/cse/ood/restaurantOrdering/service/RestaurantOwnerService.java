@@ -7,5 +7,8 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 public interface RestaurantOwnerService {
 	
 	public List<RestaurantOwner> getAllRestaurantOwners();
-	public RestaurantOwner getRestaurantOwner(Long id);
+	public RestaurantOwner getRestaurantOwnerById(Long id);
+	public void addRestaurantOwner(RestaurantOwner restaurantOwner);
+	public void updateRestaurantOwner(RestaurantOwner restaurantOwner);
+	public void deleteRestaurantOwner(Long id);
 }

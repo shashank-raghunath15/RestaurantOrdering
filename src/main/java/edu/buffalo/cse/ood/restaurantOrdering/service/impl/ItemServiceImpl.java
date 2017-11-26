@@ -11,29 +11,28 @@ import edu.buffalo.cse.ood.restaurantOrdering.service.ItemService;
 public class ItemServiceImpl extends ServiceImpl implements ItemService {
 
 	@Override
-	public void addItem(Item item) {
-		getItemRepository().save(item);
-	}
-
-	@Override
-	public Item getItem(long id) {
-		return getItemRepository().getOne(id);
-	}
-
-	@Override
 	public List<Item> getAllItems() {
 		return getItemRepository().findAll();
 	}
 
 	@Override
-	public void updateItem(Item Item) {
-		// TODO Auto-generated method stub
+	public Item getItemById(Long id) {
+		return getItemRepository().getOne(id);
 	}
 
 	@Override
-	public void deleteItem(Item Item) {
-		// TODO Auto-generated method stub
+	public void addItem(Item item) {
+		getItemRepository().save(item);
+	}
 
+	@Override
+	public void updateItem(Item item) {
+		getItemRepository().save(item);
+	}
+
+	@Override
+	public void deleteItem(Long id) {
+		getItemRepository().delete(id);
 	}
 
 }

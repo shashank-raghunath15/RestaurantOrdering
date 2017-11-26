@@ -8,11 +8,11 @@ public interface ItemService {
 
 	public void addItem(Item Item);
 
-	public Item getItem(long id);
+	public Item getItemById(Long id);
 
 	public List<Item> getAllItems();
 
 	public void updateItem(Item Item);
 
-	public void deleteItem(Item Item);
+	public void deleteItem(Long id);
 }
