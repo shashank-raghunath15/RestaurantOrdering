@@ -10,6 +10,6 @@ import lombok.Data;
 @Scope("prototype")
 public class Login {
 
-	private String userName;
+	private String username;
 	private String password;
 }

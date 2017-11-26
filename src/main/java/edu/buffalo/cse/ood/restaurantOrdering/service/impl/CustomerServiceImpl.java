@@ -39,7 +39,7 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 	
 	@Override
 	public Long login(Login login) {
-		Customer customer = getCustomerRepository().findByUsername(login.getUserName());
+		Customer customer = getCustomerRepository().findByUsername(login.getUsername());
 		if (customer != null) {
 			if (BCrypt.checkpw(login.getPassword(), customer.getPassword())) {
 				return customer.getId();

@@ -40,7 +40,7 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 
 	@Override
 	public Long login(Login login) {
-		RestaurantOwner restaurantOwner = getRestaurantOwnerRepository().findByUsername(login.getUserName());
+		RestaurantOwner restaurantOwner = getRestaurantOwnerRepository().findByUsername(login.getUsername());
 		if (restaurantOwner != null) {
 			if (BCrypt.checkpw(login.getPassword(), restaurantOwner.getPassword())) {
 				return restaurantOwner.getId();

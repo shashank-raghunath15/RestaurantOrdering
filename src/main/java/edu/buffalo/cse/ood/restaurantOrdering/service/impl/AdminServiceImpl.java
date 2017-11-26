@@ -40,7 +40,7 @@ public class AdminServiceImpl extends ServiceImpl implements AdminService {
 
 	@Override
 	public Long login(Login login) {
-		Admin admin = getAdminRepository().findByUsername(login.getUserName());
+		Admin admin = getAdminRepository().findByUsername(login.getUsername());
 		if (admin != null) {
 			if (BCrypt.checkpw(login.getPassword(), admin.getPassword())) {
 				return admin.getId();
