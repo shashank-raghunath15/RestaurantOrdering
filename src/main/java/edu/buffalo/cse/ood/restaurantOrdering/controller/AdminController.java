@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Admin;
 
 @RestController
@@ -22,22 +24,27 @@ public class AdminController extends Controller {
 	}
 
 	@GetMapping("/{id}")
-	public Admin getAdmin(@RequestParam(value = "id") Long id) {
+	public Admin getAdmin(@PathVariable Long id) {
 		return getAdminService().getAdminById(id);
+	}
+	
+	@PostMapping("/login")
+	public Long login(Login login) {
+		return getAdminService().login(login);
 	}
 
 	@PostMapping("/")
-	public void addAdmin(Admin admin) {
+	public void addAdmin(@RequestBody Admin admin) {
 		getAdminService().addAdmin(admin);
 	}
 
 	@PutMapping("/")
-	public void updateAdmin(Admin admin) {
+	public void updateAdmin(@RequestBody Admin admin) {
 		getAdminService().updateAdmin(admin);
 	}
 
 	@DeleteMapping("/")
-	public void deleteAdmin(@RequestParam(value = "id") Long id) {
+	public void deleteAdmin(@PathVariable Long id) {
 		getAdminService().deleteAdmin(id);
 	}
 }

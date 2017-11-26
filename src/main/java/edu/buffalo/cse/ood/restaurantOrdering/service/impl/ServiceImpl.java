@@ -7,7 +7,6 @@ import edu.buffalo.cse.ood.restaurantOrdering.respository.AdminRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.CustomerRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.DealRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.ItemRepository;
-import edu.buffalo.cse.ood.restaurantOrdering.respository.LoginRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.OrderRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.PersonRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.RestaurantOwnerRepository;
@@ -17,9 +16,6 @@ import lombok.Data;
 @Data
 public abstract class ServiceImpl {
 
-	@Autowired
-	private LoginRepository loginRepository;
-	
 	@Autowired
 	private PersonRepository personRepository;
 	

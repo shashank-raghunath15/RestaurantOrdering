@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
 
 @RestController
@@ -24,6 +25,11 @@ public class CustomerController extends Controller {
 	@GetMapping("/{id}")
 	public Customer getCustomer(@RequestParam(value = "id") Long id) {
 		return getCustomerService().getCustomerById(id);
+	}
+	
+	@PostMapping("/login")
+	public Long login(Login login) {
+		return getCustomerService().login(login);
 	}
 
 	@PostMapping("/")

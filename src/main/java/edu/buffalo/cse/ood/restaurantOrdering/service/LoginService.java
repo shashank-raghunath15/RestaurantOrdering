@@ -1,10 +1,8 @@
 package edu.buffalo.cse.ood.restaurantOrdering.service;
 
-import edu.buffalo.cse.ood.restaurantOrdering.model.Login;
-import edu.buffalo.cse.ood.restaurantOrdering.model.Person;
+import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 
-public interface LoginService {
+public interface LoginService{
 
-	public Person login(Login login);
-	public Login register(Login login);
+	public Long login(Login login);
 }

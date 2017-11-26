@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
 
-public interface CustomerService {
+public interface CustomerService extends LoginService{
 
 	public List<Customer> getAllCustomers();
 	public Customer getCustomerById(Long id);

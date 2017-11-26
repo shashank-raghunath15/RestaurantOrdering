@@ -15,6 +15,6 @@ import lombok.EqualsAndHashCode;
 @Component
 @Scope("prototype")
 public class RestaurantOwner extends Person{
-	@OneToOne
+	@OneToOne(mappedBy="owner")
 	private Restaurant restaurant; 
 }

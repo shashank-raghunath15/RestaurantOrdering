@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
-public interface RestaurantOwnerService {
+public interface RestaurantOwnerService extends LoginService{
 	
 	public List<RestaurantOwner> getAllRestaurantOwners();
 	public RestaurantOwner getRestaurantOwnerById(Long id);

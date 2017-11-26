@@ -2,8 +2,10 @@ package edu.buffalo.cse.ood.restaurantOrdering.service.impl;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
 import edu.buffalo.cse.ood.restaurantOrdering.service.CustomerService;
 
@@ -21,6 +23,7 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 
 	@Override
 	public void addCustomer(Customer customer) {
+		customer.setPassword(BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt()));
 		getCustomerRepository().save(customer);
 	}
 
@@ -32,5 +35,16 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 	@Override
 	public void deleteCustomer(Long id) {
 		getCustomerRepository().delete(id);
+	}
+	
+	@Override
+	public Long login(Login login) {
+		Customer customer = getCustomerRepository().findByUsername(login.getUserName());
+		if (customer != null) {
+			if (BCrypt.checkpw(login.getPassword(), customer.getPassword())) {
+				return customer.getId();
+			}
+		}
+		return -1l;
 	}
 }

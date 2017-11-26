@@ -1,5 +1,6 @@
 package edu.buffalo.cse.ood.restaurantOrdering.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,9 @@ public abstract class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@Column(nullable = false, unique = true)
 	private String name;
+	@Column(nullable = false)
 	private double price;
 	private long calories;
 }

@@ -3,13 +3,13 @@ package edu.buffalo.cse.ood.restaurantOrdering.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,16 +27,19 @@ public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	@Column(nullable=false,unique=true)
 	private String name;
+	@Column(nullable=false)
 	private String address;
 	@OneToOne
+	@JoinColumn(name = "ownerId")
 	private RestaurantOwner owner;
-	@OneToMany(mappedBy="restaurant")
+	@OneToMany(mappedBy = "restaurant")
 	private List<Deal> availableDeals = new ArrayList<Deal>();
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany
 	private List<Item> availableItems = new ArrayList<Item>();
-	@ElementCollection(targetClass= Day.class)
+	@ElementCollection(targetClass = Day.class)
 	private List<Day> closedDays = new ArrayList<Day>();
-	@OneToMany(mappedBy="restaurant")
+	@OneToMany(mappedBy = "restaurant")
 	private List<Order> allOrders = new ArrayList<Order>();
 }
