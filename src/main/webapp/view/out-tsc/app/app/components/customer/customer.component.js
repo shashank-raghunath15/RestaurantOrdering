@@ -8,9 +8,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 let CustomerComponent = class CustomerComponent {
-    constructor() { }
+    constructor(route) {
+        this.route = route;
+    }
     ngOnInit() {
+        if (sessionStorage.getItem('role') !== 'customer') {
+            this.route.navigateByUrl('');
+        }
+        this.customer = JSON.parse(sessionStorage.getItem('user'));
     }
 };
 CustomerComponent = __decorate([
@@ -19,7 +26,7 @@ CustomerComponent = __decorate([
         templateUrl: './customer.component.html',
         styleUrls: ['./customer.component.css']
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [Router])
 ], CustomerComponent);
 export { CustomerComponent };
 //# sourceMappingURL=customer.component.js.map

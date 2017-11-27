@@ -7,22 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-let RestaurantOwnerService = class RestaurantOwnerService {
-    constructor(http) {
-        this.http = http;
-    }
-    addRestaurantOwner(owner) {
-        return this.http.post('http://localhost:8080/restaurantOwner/', owner);
-    }
-    getRestaurantOwner(id) {
-        return this.http.get('http://localhost:8080/restaurantOwner/' + id);
+import { Component } from '@angular/core';
+let NotFoundComponent = class NotFoundComponent {
+    constructor() { }
+    ngOnInit() {
     }
 };
-RestaurantOwnerService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient])
-], RestaurantOwnerService);
-export { RestaurantOwnerService };
-//# sourceMappingURL=restaurant-owner.service.js.map
+NotFoundComponent = __decorate([
+    Component({
+        selector: 'app-not-found',
+        templateUrl: './not-found.component.html',
+        styleUrls: ['./not-found.component.css']
+    }),
+    __metadata("design:paramtypes", [])
+], NotFoundComponent);
+export { NotFoundComponent };
+//# sourceMappingURL=not-found.component.js.map

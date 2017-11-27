@@ -9,11 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import { CustomerService } from '../../services/customer.service';
+import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 let LoginComponent = class LoginComponent {
-    constructor(loginService, adminService) {
+    // tslint:disable-next-line:max-line-length
+    constructor(loginService, adminService, route, customerService, ownerService) {
         this.loginService = loginService;
         this.adminService = adminService;
+        this.route = route;
+        this.customerService = customerService;
+        this.ownerService = ownerService;
     }
     ngOnInit() {
     }
@@ -27,14 +34,29 @@ let LoginComponent = class LoginComponent {
                     this.adminService.getAdmin(id).subscribe((admin) => {
                         sessionStorage.setItem('user', JSON.stringify(admin));
                         sessionStorage.setItem('role', login.role);
-                        console.log(sessionStorage.getItem('user'));
+                        this.route.navigateByUrl('/admin');
                     });
                 }
                 else if (login.role === 'customer') {
+                    this.customerService.getCustomer(id).subscribe((customer) => {
+                        sessionStorage.setItem('user', JSON.stringify(customer));
+                        sessionStorage.setItem('role', login.role);
+                        this.route.navigateByUrl('/customer');
+                    });
                 }
                 else {
+                    this.ownerService.getRestaurantOwner(id).subscribe((restaurantOwner) => {
+                        sessionStorage.setItem('user', JSON.stringify(restaurantOwner));
+                        sessionStorage.setItem('role', login.role);
+                        this.route.navigateByUrl('/restaurantOwner');
+                    });
                 }
             }
+        });
+    }
+    registerCustomer(customer) {
+        this.customerService.addCustomer(customer).subscribe(res => {
+            console.log(res);
         });
     }
 };
@@ -44,7 +66,7 @@ LoginComponent = __decorate([
         templateUrl: './login.component.html',
         styleUrls: ['./login.component.css']
     }),
-    __metadata("design:paramtypes", [LoginService, AdminService])
+    __metadata("design:paramtypes", [LoginService, AdminService, Router, CustomerService, RestaurantOwnerService])
 ], LoginComponent);
 export { LoginComponent };
 //# sourceMappingURL=login.component.js.map

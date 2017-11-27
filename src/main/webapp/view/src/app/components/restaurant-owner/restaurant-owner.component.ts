@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RestaurantOwner } from '../../models/restaurantOwner';
 
 @Component({
   selector: 'app-restaurant-owner',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantOwnerComponent implements OnInit {
 
-  constructor() { }
+  owner: RestaurantOwner;
+  constructor(private route: Router) { }
 
   ngOnInit() {
+    if (sessionStorage.getItem('role') !== 'restaurantOwner') {
+      this.route.navigateByUrl('');
+    }
+    this.owner = JSON.parse(sessionStorage.getItem('user'));
   }
 
 }

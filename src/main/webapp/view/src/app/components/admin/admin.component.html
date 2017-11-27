@@ -1,3 +1,48 @@
-<p>
-  admin works!
-</p>
+<button type="button" class="btn" (click)="showAddRestaurantOwner()">Add RestaurantOwner</button>
+<button type="button" class="btn" (click)="showAddItem()">Add Item</button>
+<button type="button" class="btn" (click)="showAddRestaurant()">Add Restaurant</button>
+
+<div *ngIf="showOwner">
+  <form #addOwner="ngForm" (ngSubmit)="addRestaurantOwner(addOwner.value)">
+    <label for="username">Username:</label>
+    <input type="text" name="username" ngModel>
+    <br/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" ngModel>
+    <label for="name">Name:</label>
+    <input type="text" name="name" ngModel>
+    <br/>
+    <label for="address">Address:</label>
+    <input type="text" name="address" ngModel>
+    <br/>
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div>
+
+<div *ngIf="showItem">
+  <form #Item="ngForm" (ngSubmit)="addItem(Item.value)">
+    <label for="itemType">Type:</label>
+    <select name="itemType" ngModel>
+      <option value="recipeItem" name="">Recipe</option>
+      <option value="drinkItem" name="">Drink</option>
+      <option value="sideItem" name="">Side</option>
+    </select>
+    <br/>
+    <label for="name">Name:</label>
+    <input type="text" name="name" ngModel>
+    <br/>
+    <label for="price">Price:</label>
+    <input type="number" name="price" step="any" ngModel>
+    <br/>
+    <label for="calories">Calories:</label>
+    <input type="number" name="calories" ngModel>
+    <br/>
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div>
+<div *ngIf="showRestaurant">
+  <h2>Show Restaurant</h2>
+  <form>
+
+  </form>
+</div>
