@@ -43,7 +43,7 @@ public class RestaurantOwnerController extends Controller {
 		getRestaurantOwnerService().updateRestaurantOwner(restaurantOwner);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteRestaurantOwner(@PathVariable Long id) {
 		getRestaurantOwnerService().deleteRestaurantOwner(id);
 	}

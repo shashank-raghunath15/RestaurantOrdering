@@ -42,7 +42,7 @@ public class RestaurantController extends Controller{
 		getRestaurantService().updateRestaurant(Restaurant);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteRestaurant(@PathVariable Long id) {
 		getRestaurantService().deleteRestaurant(id);
 	}

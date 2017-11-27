@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../../services/login.service';
-import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,27 +8,34 @@ import {FormControl, FormGroup} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  private login: FormGroup;
+  private login: Login;
   private id: Number;
 
   constructor(private loginService: LoginService) {}
 
   ngOnInit() {
-    this.login = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl('')
-    });
-//    this.loginService.login(this.login).subscribe((data) => {
-//      console.log(data);
-//    });
   }
 
-  loginAdmin({value, valid}: {value: Login, valid: boolean}) {
-    console.log(this.login);
+  loginAdmin(login: Login) {
+
+    this.loginService.login(login).subscribe((res) => {
+      if (res === -1) {
+        alert('login failed');
+      } else {
+        if (login.role === 'admin') {
+          
+        } else if (login.role === 'customer') {
+
+        } else {
+
+        }
+      }
+    });
   }
 
 }
 export interface Login {
   username: String;
   password: String;
+  role: String;
 }

@@ -9,22 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { FormControl, FormGroup } from '@angular/forms';
 let LoginComponent = class LoginComponent {
     constructor(loginService) {
         this.loginService = loginService;
     }
     ngOnInit() {
-        this.login = new FormGroup({
-            username: new FormControl(''),
-            password: new FormControl('')
-        });
-        //    this.loginService.login(this.login).subscribe((data) => {
-        //      console.log(data);
-        //    });
     }
-    loginAdmin({ value, valid }) {
-        console.log(this.login);
+    loginAdmin(login) {
+        this.loginService.login(login).subscribe((res) => {
+            if (res === -1) {
+                alert('login failed');
+            }
+            else {
+                if (login.role === 'admin') {
+                }
+                else if (login.role === 'customer') {
+                }
+                else {
+                }
+            }
+        });
     }
 };
 LoginComponent = __decorate([

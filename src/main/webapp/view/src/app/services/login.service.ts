@@ -11,6 +11,6 @@ export class LoginService {
   }
 
   login(login: Login) {
-    return this.http.post('http://localhost:8080/admin/login', login);
+    return this.http.post('http://localhost:8080/' + login.role + '/login', login);
   }
 }

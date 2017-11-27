@@ -43,7 +43,7 @@ public class CustomerController extends Controller {
 		getCustomerService().updateCustomer(customer);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteCustomer(@PathVariable Long id) {
 		getCustomerService().deleteCustomer(id);
 	}

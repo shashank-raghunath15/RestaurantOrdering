@@ -15,7 +15,7 @@ let LoginService = class LoginService {
         this.http = http;
     }
     login(login) {
-        return this.http.post('http://localhost:8080/admin/login', login);
+        return this.http.post('http://localhost:8080/' + login.role + '/login', login);
     }
 };
 LoginService = __decorate([

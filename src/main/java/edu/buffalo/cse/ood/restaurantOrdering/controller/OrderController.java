@@ -37,7 +37,7 @@ public class OrderController extends Controller {
 		getOrderService().updateOrder(order);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteOrder(@PathVariable Long id) {
 		getOrderService().deleteOrder(id);
 	}

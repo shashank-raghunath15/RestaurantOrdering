@@ -43,7 +43,7 @@ public class AdminController extends Controller {
 		getAdminService().updateAdmin(admin);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteAdmin(@PathVariable Long id) {
 		getAdminService().deleteAdmin(id);
 	}

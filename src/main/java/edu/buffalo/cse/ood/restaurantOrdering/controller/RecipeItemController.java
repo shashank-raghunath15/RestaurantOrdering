@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.buffalo.cse.ood.restaurantOrdering.model.Deal;
+import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 
 @RestController
-@RequestMapping("/deal")
-public class DealController extends Controller{
+@RequestMapping("/recipeItem")
+public class RecipeItemController extends Controller {
 
 	@GetMapping("/")
-	public List<Deal> getAllDeals() {
-		return getDealService().getAllDeals();
+	public List<RecipeItem> getAllRecipeItems() {
+		return getRecipeItemService().getAllRecipeItems();
 	}
 
 	@GetMapping("/{id}")
-	public Deal getDeal(@PathVariable Long id) {
-		return getDealService().getDealById(id);
+	public RecipeItem getRecipeItem(@PathVariable Long id) {
+		return getRecipeItemService().getRecipeItemById(id);
 	}
 
 	@PostMapping("/")
-	public Deal addDeal(@RequestBody Deal deal) {
-		return getDealService().addDeal(deal);
+	public RecipeItem addRecipeItem(@RequestBody RecipeItem recipeItem) {
+		return getRecipeItemService().addRecipeItem(recipeItem);
 	}
 
 	@PutMapping("/")
-	public void updateDeal(@RequestBody Deal deal) {
-		getDealService().updateDeal(deal);
+	public void updateRecipeItem(@RequestBody RecipeItem recipeItem) {
+		getRecipeItemService().updateRecipeItem(recipeItem);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteDeal(@PathVariable Long id) {
-		getDealService().deleteDeal(id);
+	public void deleteRecipeItem(@PathVariable Long id) {
+		getRecipeItemService().deleteRecipeItem(id);
 	}
 }

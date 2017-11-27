@@ -6,11 +6,14 @@ import org.springframework.context.ApplicationContext;
 import edu.buffalo.cse.ood.restaurantOrdering.service.AdminService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.CustomerService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.DealService;
+import edu.buffalo.cse.ood.restaurantOrdering.service.DrinkItemService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.ItemService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.OrderService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.PersonService;
+import edu.buffalo.cse.ood.restaurantOrdering.service.RecipeItemService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantOwnerService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantService;
+import edu.buffalo.cse.ood.restaurantOrdering.service.SideItemService;
 import lombok.Data;
 
 @Data
@@ -42,4 +45,13 @@ public abstract class Controller {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
+	
+	@Autowired
+	private SideItemService sideItemService;
+
+	@Autowired
+	private DrinkItemService drinkItemService;
+
+	@Autowired
+	private RecipeItemService recipeItemService;
 }

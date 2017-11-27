@@ -37,7 +37,7 @@ public class ItemController extends Controller {
 		getItemService().updateItem(item);
 	}
 
-	@DeleteMapping("/")
+	@DeleteMapping("/{id}")
 	public void deleteItem(@PathVariable Long id) {
 		getItemService().deleteItem(id);
 	}
