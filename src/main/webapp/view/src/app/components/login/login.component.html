@@ -1,11 +1,11 @@
-<form class="form-signin" #loginForm="ngForm" (ngSubmit)="loginAdmin(loginForm.value)">
+<form class="form-signin" #loginForm="ngForm" (ngSubmit)="logIn(loginForm.value)">
 		<h2 class="form-signin-heading">Login</h2>
 	<label for="username" class="sr-only">Username:</label>
 	<input type="text" name="username" class="form-control" placeholder="username" ngModel>
 	<label for="password" class="sr-only">Password:</label>
 	<input type="password" name="password" class="form-control" placeholder="password" ngModel>
 	<select name="role" class="form-control" ngModel>
-		<option value="customer" selected="selected">Customer</option>
+		<option value="customer" [selected]="loginForm.role == 'customer'">Customer</option>
 		<option value="restaurantOwner">Owner</option>
 		<option value="admin">Admin</option>
 	</select>

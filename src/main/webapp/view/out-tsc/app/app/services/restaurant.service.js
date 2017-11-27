@@ -8,12 +8,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 let RestaurantService = class RestaurantService {
-    constructor() { }
+    constructor(http) {
+        this.http = http;
+    }
+    addRestaurant(restaurant) {
+        return this.http.post('http://localhost:8080/restaurant/', restaurant);
+    }
+    getByOwnerId(id) {
+        return this.http.get('http://localhost:8080/restaurant/owner/' + id);
+    }
 };
 RestaurantService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [HttpClient])
 ], RestaurantService);
 export { RestaurantService };
 //# sourceMappingURL=restaurant.service.js.map

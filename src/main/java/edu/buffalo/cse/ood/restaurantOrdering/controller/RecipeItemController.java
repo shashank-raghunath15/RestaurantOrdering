@@ -26,6 +26,11 @@ public class RecipeItemController extends Controller {
 	public RecipeItem getRecipeItem(@PathVariable Long id) {
 		return getRecipeItemService().getRecipeItemById(id);
 	}
+	
+	@GetMapping("/restaurant/{id}")
+	public List<RecipeItem> getAllNew(@PathVariable Long id) {
+		return getRecipeItemService().getRecipeItemsNew(id);
+	}
 
 	@PostMapping("/")
 	public RecipeItem addRecipeItem(@RequestBody RecipeItem recipeItem) {

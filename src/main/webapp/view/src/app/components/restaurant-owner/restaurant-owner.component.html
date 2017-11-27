@@ -1,3 +1,12 @@
-<p>
-  restaurant-owner works!
-</p>
+<select name="itemType" #itemType (change)="loadItems(itemType.value)">
+  <option value="RecipeItem">Recipe</option>
+  <option value="DrinkItem">Drink</option>
+  <option value="SideItem">Side</option>
+</select>
+<div *ngFor="let item of items">
+  <form (ngSubmit)="addItemToRestaurant(Item.value)" #Item="ngForm">
+    <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
+    <h2>{{item.name}}</h2>
+    <button type="submit" class="btn">Add</button>
+  </form>
+</div>

@@ -3,6 +3,7 @@ package edu.buffalo.cse.ood.restaurantOrdering.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -27,14 +28,14 @@ public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(nullable=false,unique=true)
+	@Column(nullable = false, unique = true)
 	private String name;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String address;
 	@OneToOne
 	@JoinColumn(name = "ownerId")
 	private RestaurantOwner owner;
-	@OneToMany(mappedBy = "restaurant")
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private List<Deal> availableDeals = new ArrayList<Deal>();
 	@OneToMany
 	private List<Item> availableItems = new ArrayList<Item>();

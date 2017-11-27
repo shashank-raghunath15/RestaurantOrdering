@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.DrinkItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.DrinkItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.service.DrinkItemService;
 
 @Service
@@ -35,4 +37,11 @@ public class DrinkItemServiceImpl extends ServiceImpl implements DrinkItemServic
 		getDrinkItemRepository().delete(id);
 	}
 
+	@Override
+	public List<DrinkItem> getDrinkItemsNew(Long id) {
+		Restaurant restaurant = getRestaurantRepository().getOne(id);
+		List<DrinkItem> allItems = getDrinkItemRepository().findAll();
+		allItems.remove(restaurant.getAvailableItems());
+		return allItems;
+	}
 }

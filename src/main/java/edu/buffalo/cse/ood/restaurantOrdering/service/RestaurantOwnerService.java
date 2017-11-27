@@ -2,6 +2,8 @@ package edu.buffalo.cse.ood.restaurantOrdering.service;
 
 import java.util.List;
 
+import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
 public interface RestaurantOwnerService extends LoginService{
@@ -11,4 +13,5 @@ public interface RestaurantOwnerService extends LoginService{
 	public RestaurantOwner addRestaurantOwner(RestaurantOwner restaurantOwner);
 	public void updateRestaurantOwner(RestaurantOwner restaurantOwner);
 	public void deleteRestaurantOwner(Long id);
+	public Restaurant addItemToRestaurant(Long restaurantId, Item item);
 }

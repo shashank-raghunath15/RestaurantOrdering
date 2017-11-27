@@ -16,6 +16,15 @@ let ItemService = class ItemService {
     addItem(item) {
         return this.http.post('http://localhost:8080/' + item.itemType + '/', item);
     }
+    getRecipeItems(id) {
+        return this.http.get('http://localhost:8080/recipeItem/restaurant/' + id);
+    }
+    getDrinkItems(id) {
+        return this.http.get('http://localhost:8080/drinkItem/restaurant/' + id);
+    }
+    getSideItems(id) {
+        return this.http.get('http://localhost:8080/sideItem/restaurant/' + id);
+    }
 };
 ItemService = __decorate([
     Injectable(),

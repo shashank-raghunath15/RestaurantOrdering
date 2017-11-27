@@ -46,4 +46,9 @@ public class RestaurantController extends Controller{
 	public void deleteRestaurant(@PathVariable Long id) {
 		getRestaurantService().deleteRestaurant(id);
 	}
+	
+	@GetMapping("/owner/{id}")
+	public Restaurant getRestaurantByOwnerId(@PathVariable Long id){
+		return getRestaurantService().getByOwnerId(id);
+	}
 }

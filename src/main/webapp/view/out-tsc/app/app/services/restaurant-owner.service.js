@@ -19,6 +19,12 @@ let RestaurantOwnerService = class RestaurantOwnerService {
     getRestaurantOwner(id) {
         return this.http.get('http://localhost:8080/restaurantOwner/' + id);
     }
+    getAllRestaurantOwners() {
+        return this.http.get('http://localhost:8080/restaurantOwner/');
+    }
+    addItemToRestaurant(id, item) {
+        return this.http.post('http://localhost:8080/restaurantOwner/' + id + '/add' + item.itemType + '/', item);
+    }
 };
 RestaurantOwnerService = __decorate([
     Injectable(),

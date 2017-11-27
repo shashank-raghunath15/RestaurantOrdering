@@ -12,4 +12,15 @@ export class ItemService {
     return this.http.post('http://localhost:8080/' + item.itemType + '/', item);
   }
 
+  getRecipeItems(id: number) {
+    return this.http.get('http://localhost:8080/recipeItem/restaurant/' + id);
+  }
+
+  getDrinkItems(id: number) {
+    return this.http.get('http://localhost:8080/drinkItem/restaurant/' + id);
+  }
+
+  getSideItems(id: number) {
+    return this.http.get('http://localhost:8080/sideItem/restaurant/' + id);
+  }
 }

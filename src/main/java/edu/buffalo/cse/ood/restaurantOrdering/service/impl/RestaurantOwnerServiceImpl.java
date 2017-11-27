@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantOwnerService;
 
@@ -47,5 +49,13 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 			}
 		}
 		return -1l;
+	}
+
+	@Override
+	public Restaurant addItemToRestaurant(Long restaurantId, Item item) {
+		Restaurant restaurant = getRestaurantRepository().getOne(restaurantId);
+		item = getItemRepository().getOne(item.getId());
+		restaurant.getAvailableItems().add(item);
+		return getRestaurantRepository().save(restaurant);
 	}
 }

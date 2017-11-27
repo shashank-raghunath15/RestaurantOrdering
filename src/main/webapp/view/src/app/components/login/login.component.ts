@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginAdmin(login: Login) {
+  logIn(login: Login) {
 
     this.loginService.login(login).subscribe((id: Number) => {
       if (id === -1) {

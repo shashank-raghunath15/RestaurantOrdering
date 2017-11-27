@@ -26,6 +26,10 @@ public class SideItemController extends Controller {
 	public SideItem getSideItem(@PathVariable Long id) {
 		return getSideItemService().getSideItemById(id);
 	}
+	@GetMapping("/restaurant/{id}")
+	public List<SideItem> getAllNew(@PathVariable Long id) {
+		return getSideItemService().getSideItemsNew(id);
+	}
 
 	@PostMapping("/")
 	public SideItem addSideItem(@RequestBody SideItem sideItem) {

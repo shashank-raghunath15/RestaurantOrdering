@@ -15,4 +15,6 @@ public interface SideItemService {
 	public void updateSideItem(SideItem sideItem);
 
 	public void deleteSideItem(Long id);
+	
+	public List<SideItem> getSideItemsNew(Long id);
 }

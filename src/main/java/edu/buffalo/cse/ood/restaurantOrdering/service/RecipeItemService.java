@@ -15,4 +15,6 @@ public interface RecipeItemService {
 	public void updateRecipeItem(RecipeItem RecipeItem);
 
 	public void deleteRecipeItem(Long id);
+
+	public List<RecipeItem> getRecipeItemsNew(Long id);
 }

@@ -27,6 +27,11 @@ public class DrinkItemController extends Controller {
 		return getDrinkItemService().getDrinkItemById(id);
 	}
 
+	@GetMapping("/restaurant/{id}")
+	public List<DrinkItem> getAllNew(@PathVariable Long id) {
+		return getDrinkItemService().getDrinkItemsNew(id);
+	}
+
 	@PostMapping("/")
 	public DrinkItem addDrinkItem(@RequestBody DrinkItem drinkItem) {
 		return getDrinkItemService().addDrinkItem(drinkItem);

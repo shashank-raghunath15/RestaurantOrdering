@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.SideItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
+import edu.buffalo.cse.ood.restaurantOrdering.model.SideItem;
 import edu.buffalo.cse.ood.restaurantOrdering.service.SideItemService;
 
 @Service
@@ -33,6 +35,14 @@ public class SideItemServiceImpl extends ServiceImpl implements SideItemService 
 	@Override
 	public void deleteSideItem(Long id) {
 		getSideItemRepository().delete(id);
+	}
+
+	@Override
+	public List<SideItem> getSideItemsNew(Long id) {
+		Restaurant restaurant = getRestaurantRepository().getOne(id);
+		List<SideItem> allItems = getSideItemRepository().findAll();
+		allItems.remove(restaurant.getAvailableItems());
+		return allItems;
 	}
 
 }

@@ -15,4 +15,6 @@ public interface DrinkItemService {
 	public void updateDrinkItem(DrinkItem DrinkItem);
 
 	public void deleteDrinkItem(Long id);
+
+	public List<DrinkItem> getDrinkItemsNew(Long id);
 }

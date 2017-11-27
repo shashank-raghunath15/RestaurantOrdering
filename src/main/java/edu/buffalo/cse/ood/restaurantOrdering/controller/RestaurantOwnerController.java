@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
+import edu.buffalo.cse.ood.restaurantOrdering.model.DrinkItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
+import edu.buffalo.cse.ood.restaurantOrdering.model.SideItem;
 
 @RestController
 @RequestMapping("/restaurantOwner")
@@ -30,7 +34,7 @@ public class RestaurantOwnerController extends Controller {
 
 	@PostMapping("/login")
 	public Long login(@RequestBody Login login) {
-		return getCustomerService().login(login);
+		return getRestaurantOwnerService().login(login);
 	}
 
 	@PostMapping("/")
@@ -46,5 +50,20 @@ public class RestaurantOwnerController extends Controller {
 	@DeleteMapping("/{id}")
 	public void deleteRestaurantOwner(@PathVariable Long id) {
 		getRestaurantOwnerService().deleteRestaurantOwner(id);
+	}
+
+	@PostMapping("/{id}/addRecipeItem")
+	public Restaurant addRecipeItemToRestaurant(@PathVariable Long id, @RequestBody RecipeItem item) {
+		return getRestaurantOwnerService().addItemToRestaurant(id, item);
+	}
+
+	@PostMapping("/{id}/addSideItem")
+	public Restaurant addSideItemToRestaurant(@PathVariable Long id, @RequestBody SideItem item) {
+		return getRestaurantOwnerService().addItemToRestaurant(id, item);
+	}
+
+	@PostMapping("/{id}/addDrinkItem")
+	public Restaurant addDrinkItemToRestaurant(@PathVariable Long id, @RequestBody DrinkItem item) {
+		return getRestaurantOwnerService().addItemToRestaurant(id, item);
 	}
 }

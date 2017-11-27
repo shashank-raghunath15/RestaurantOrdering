@@ -39,4 +39,9 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 		return getRestaurantRepository().findByName(name);
 	}
 
+	@Override
+	public Restaurant getByOwnerId(Long id) {
+		return getRestaurantRepository().findByOwnerId(id);
+	}
+
 }

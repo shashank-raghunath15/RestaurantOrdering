@@ -24,7 +24,7 @@ let LoginComponent = class LoginComponent {
     }
     ngOnInit() {
     }
-    loginAdmin(login) {
+    logIn(login) {
         this.loginService.login(login).subscribe((id) => {
             if (id === -1) {
                 alert('login failed');

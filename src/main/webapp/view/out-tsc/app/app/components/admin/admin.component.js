@@ -10,18 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
+import { RestaurantService } from '../../services/restaurant.service';
 import { ItemService } from '../../services/item.service';
 let AdminComponent = class AdminComponent {
-    constructor(route, ownerService, itemService) {
+    // tslint:disable-next-line:max-line-length
+    constructor(route, ownerService, itemService, restaurantService) {
         this.route = route;
         this.ownerService = ownerService;
         this.itemService = itemService;
+        this.restaurantService = restaurantService;
     }
     ngOnInit() {
         if (sessionStorage.getItem('role') !== 'admin') {
             this.route.navigateByUrl('');
         }
         this.admin = JSON.parse(sessionStorage.getItem('user'));
+        this.ownerService.getAllRestaurantOwners().subscribe((owners) => {
+            this.owners = owners;
+        });
     }
     showAddRestaurantOwner() {
         this.showOwner = true;
@@ -48,6 +54,11 @@ let AdminComponent = class AdminComponent {
         this.showItem = false;
         this.showRestaurant = true;
     }
+    addRestaurant(restaurant) {
+        this.restaurantService.addRestaurant(restaurant).subscribe(res => {
+            console.log(res);
+        });
+    }
 };
 AdminComponent = __decorate([
     Component({
@@ -55,7 +66,7 @@ AdminComponent = __decorate([
         templateUrl: './admin.component.html',
         styleUrls: ['./admin.component.css']
     }),
-    __metadata("design:paramtypes", [Router, RestaurantOwnerService, ItemService])
+    __metadata("design:paramtypes", [Router, RestaurantOwnerService, ItemService, RestaurantService])
 ], AdminComponent);
 export { AdminComponent };
 //# sourceMappingURL=admin.component.js.map

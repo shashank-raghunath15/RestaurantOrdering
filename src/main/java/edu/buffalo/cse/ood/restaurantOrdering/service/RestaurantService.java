@@ -13,4 +13,5 @@ public interface RestaurantService {
 	public void updateRestaurant(Restaurant restaurant);
 	public void deleteRestaurant(Long id);
 	public Restaurant getRestaurantByName(String name);
+	public Restaurant getByOwnerId(Long id);
 }
