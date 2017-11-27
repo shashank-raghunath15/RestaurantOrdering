@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import {Login} from '../components/login/login.component';
+import {Login} from '../models/login';
 
 @Injectable()
 export class LoginService {
@@ -12,5 +11,9 @@ export class LoginService {
 
   login(login: Login) {
     return this.http.post('http://localhost:8080/' + login.role + '/login', login);
+  }
+
+  logout() {
+    sessionStorage.clear();
   }
 }

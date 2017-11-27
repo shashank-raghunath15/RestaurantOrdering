@@ -9,19 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { AdminService } from '../../services/admin.service';
 let LoginComponent = class LoginComponent {
-    constructor(loginService) {
+    constructor(loginService, adminService) {
         this.loginService = loginService;
+        this.adminService = adminService;
     }
     ngOnInit() {
     }
     loginAdmin(login) {
-        this.loginService.login(login).subscribe((res) => {
-            if (res === -1) {
+        this.loginService.login(login).subscribe((id) => {
+            if (id === -1) {
                 alert('login failed');
             }
             else {
                 if (login.role === 'admin') {
+                    this.adminService.getAdmin(id).subscribe((admin) => {
+                        sessionStorage.setItem('user', JSON.stringify(admin));
+                        sessionStorage.setItem('role', login.role);
+                        console.log(sessionStorage.getItem('user'));
+                    });
                 }
                 else if (login.role === 'customer') {
                 }
@@ -37,7 +44,7 @@ LoginComponent = __decorate([
         templateUrl: './login.component.html',
         styleUrls: ['./login.component.css']
     }),
-    __metadata("design:paramtypes", [LoginService])
+    __metadata("design:paramtypes", [LoginService, AdminService])
 ], LoginComponent);
 export { LoginComponent };
 //# sourceMappingURL=login.component.js.map

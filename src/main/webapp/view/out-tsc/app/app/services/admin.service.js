@@ -9,20 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-let LoginService = class LoginService {
+let AdminService = class AdminService {
     constructor(http) {
         this.http = http;
     }
-    login(login) {
-        return this.http.post('http://localhost:8080/' + login.role + '/login', login);
-    }
-    logout() {
-        sessionStorage.clear();
+    getAdmin(id) {
+        return this.http.get('http://localhost:8080/admin/' + id);
     }
 };
-LoginService = __decorate([
+AdminService = __decorate([
     Injectable(),
     __metadata("design:paramtypes", [HttpClient])
-], LoginService);
-export { LoginService };
-//# sourceMappingURL=login.service.js.map
+], AdminService);
+export { AdminService };
+//# sourceMappingURL=admin.service.js.map

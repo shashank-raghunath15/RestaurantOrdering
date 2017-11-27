@@ -7,22 +7,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-let LoginService = class LoginService {
-    constructor(http) {
-        this.http = http;
-    }
-    login(login) {
-        return this.http.post('http://localhost:8080/' + login.role + '/login', login);
-    }
-    logout() {
-        sessionStorage.clear();
+import { Component } from '@angular/core';
+let AdminComponent = class AdminComponent {
+    constructor() { }
+    ngOnInit() {
     }
 };
-LoginService = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [HttpClient])
-], LoginService);
-export { LoginService };
-//# sourceMappingURL=login.service.js.map
+AdminComponent = __decorate([
+    Component({
+        selector: 'app-admin',
+        templateUrl: './admin.component.html',
+        styleUrls: ['./admin.component.css']
+    }),
+    __metadata("design:paramtypes", [])
+], AdminComponent);
+export { AdminComponent };
+//# sourceMappingURL=admin.component.js.map
