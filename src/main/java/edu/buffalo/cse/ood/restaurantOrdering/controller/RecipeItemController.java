@@ -16,7 +16,7 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 @RestController
 @RequestMapping("/recipeItem")
 public class RecipeItemController extends Controller {
-
+	int size = 0;
 	@GetMapping("/")
 	public List<RecipeItem> getAllRecipeItems() {
 		return getRecipeItemService().getAllRecipeItems();
@@ -31,9 +31,17 @@ public class RecipeItemController extends Controller {
 	public List<RecipeItem> getAllNew(@PathVariable Long id) {
 		return getRecipeItemService().getRecipeItemsNew(id);
 	}
-
+	
+	/*private boolean hasItem(RecipeItem item) {
+		List<RecipeItem> items = getAllRecipeItems();
+		return items.contains(item);
+	}*/
+	
+	/*@Requires("recipeItem != null")
+	@Ensures({"hasItem(recipeItem)", "size = old(size)+ 1"})*/
 	@PostMapping("/")
 	public RecipeItem addRecipeItem(@RequestBody RecipeItem recipeItem) {
+		size++;
 		return getRecipeItemService().addRecipeItem(recipeItem);
 	}
 
@@ -41,9 +49,12 @@ public class RecipeItemController extends Controller {
 	public void updateRecipeItem(@RequestBody RecipeItem recipeItem) {
 		getRecipeItemService().updateRecipeItem(recipeItem);
 	}
-
+	
+	/*@Requires({"id != -1", "size > 0", "hasItem(getRecipeItem(id))"})
+	@Ensures({"getRecipeItem(id) == null", "size = old(size) - 1"})*/
 	@DeleteMapping("/{id}")
 	public void deleteRecipeItem(@PathVariable Long id) {
+		size--;
 		getRecipeItemService().deleteRecipeItem(id);
 	}
 }

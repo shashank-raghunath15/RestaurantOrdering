@@ -19,7 +19,6 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 @RestController
 @RequestMapping("/item")
 public class ItemController extends Controller {
-	int size = 0;
 	
 	@GetMapping("/")
 	public List<Item> getAllItems() {
@@ -31,29 +30,18 @@ public class ItemController extends Controller {
 		return getItemService().getItemById(id);
 	}
 
-	/*@Requires("item != null")
-	@Ensures({"hasItem(item)", "size = old(size)+ 1"})*/
 	@PostMapping("/")
 	public Item addItem(@RequestBody Item item) {
-		size++;
 		return getItemService().addItem(item);
 	}
 
-	/*private boolean hasItem(Item item) {
-		List<Item> items = getAllItems();
-		return items.contains(item);
-	}*/
-	
 	@PutMapping("/")
 	public void updateItem(@RequestBody Item item) {
 		getItemService().updateItem(item);
 	}
 	
-	/*@Requires({"id != -1", "size > 0", "hasItem(getItem(id))"})
-	@Ensures({"!hasItem(item)", "size = old(size) - 1"})*/
 	@DeleteMapping("/{id}")
 	public void deleteItem(@PathVariable Long id) {
-		size--;
 		getItemService().deleteItem(id);
 	}
 }
