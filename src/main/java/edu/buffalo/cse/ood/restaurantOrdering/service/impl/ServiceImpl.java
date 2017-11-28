@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import edu.buffalo.cse.ood.restaurantOrdering.respository.AdminRepository;
+import edu.buffalo.cse.ood.restaurantOrdering.respository.AmountDiscountDealRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.CustomerRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.DealRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.DrinkItemRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.ItemRepository;
+import edu.buffalo.cse.ood.restaurantOrdering.respository.MealDiscountDealRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.OrderRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.PersonRepository;
 import edu.buffalo.cse.ood.restaurantOrdering.respository.RecipeItemRepository;
@@ -54,4 +56,10 @@ public abstract class ServiceImpl {
 
 	@Autowired
 	private RecipeItemRepository recipeItemRepository;
+	
+	@Autowired
+	private AmountDiscountDealRepository amountDiscountDealRepository;
+	
+	@Autowired
+	private MealDiscountDealRepository mealDiscountDealRepository;
 }

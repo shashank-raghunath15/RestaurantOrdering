@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import edu.buffalo.cse.ood.restaurantOrdering.service.AdminService;
+import edu.buffalo.cse.ood.restaurantOrdering.service.AmountDiscountDealService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.CustomerService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.DealService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.DrinkItemService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.ItemService;
+import edu.buffalo.cse.ood.restaurantOrdering.service.MealDiscountDealService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.OrderService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.PersonService;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RecipeItemService;
@@ -54,4 +56,10 @@ public abstract class Controller {
 
 	@Autowired
 	private RecipeItemService recipeItemService;
+	
+	@Autowired
+	private MealDiscountDealService mealDiscountDealService;
+	
+	@Autowired
+	private AmountDiscountDealService amountDiscountDealService;
 }

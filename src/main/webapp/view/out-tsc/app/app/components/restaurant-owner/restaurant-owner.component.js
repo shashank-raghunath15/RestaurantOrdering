@@ -10,15 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestaurantService } from '../../services/restaurant.service';
+import { DealService } from '../../services/deal.service';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { ItemService } from '../../services/item.service';
 let RestaurantOwnerComponent = class RestaurantOwnerComponent {
     // tslint:disable-next-line:max-line-length
-    constructor(route, restaurantService, itemService, ownerService) {
+    constructor(route, restaurantService, itemService, ownerService, dealService) {
         this.route = route;
         this.restaurantService = restaurantService;
         this.itemService = itemService;
         this.ownerService = ownerService;
+        this.dealService = dealService;
     }
     ngOnInit() {
         if (sessionStorage.getItem('role') !== 'restaurantOwner') {
@@ -55,15 +57,42 @@ let RestaurantOwnerComponent = class RestaurantOwnerComponent {
             this.items = this.sideItems;
         }
     }
+    loadDeals(dealType) {
+        if (dealType === 'AmountDiscountDeal') {
+            this.showAmtDeal();
+        }
+        else {
+            this.showMealDeal();
+        }
+    }
     addItemToRestaurant(item) {
         item.itemType = this.itemType;
         this.ownerService.addItemToRestaurant(this.restaurant.id, item).subscribe(res => {
             console.log(res);
         });
     }
-    showAddDeal() {
+    showAddDeals() {
         this.showItem = false;
         this.showDeal = true;
+        this.showAmtDeal();
+    }
+    showAmtDeal() {
+        this.amtDeal = true;
+        this.mealDeal = false;
+    }
+    showMealDeal() {
+        this.amtDeal = false;
+        this.mealDeal = true;
+    }
+    addAmtDealToRestaurant(amtDeal) {
+        this.dealService.addAmtDeal(this.restaurant.id, amtDeal).subscribe((res) => {
+            console.log(res);
+        });
+    }
+    addMealDealToRestaurant(mealDeal) {
+        this.dealService.addMealDeal(this.restaurant.id, mealDeal).subscribe((res) => {
+            console.log(res);
+        });
     }
 };
 RestaurantOwnerComponent = __decorate([
@@ -72,7 +101,7 @@ RestaurantOwnerComponent = __decorate([
         templateUrl: './restaurant-owner.component.html',
         styleUrls: ['./restaurant-owner.component.css']
     }),
-    __metadata("design:paramtypes", [Router, RestaurantService, ItemService, RestaurantOwnerService])
+    __metadata("design:paramtypes", [Router, RestaurantService, ItemService, RestaurantOwnerService, DealService])
 ], RestaurantOwnerComponent);
 export { RestaurantOwnerComponent };
 //# sourceMappingURL=restaurant-owner.component.js.map

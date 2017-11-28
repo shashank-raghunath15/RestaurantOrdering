@@ -1,12 +1,43 @@
-<select name="itemType" #itemType (change)="loadItems(itemType.value)">
-  <option value="RecipeItem">Recipe</option>
-  <option value="DrinkItem">Drink</option>
-  <option value="SideItem">Side</option>
-</select>
-<div *ngFor="let item of items">
-  <form (ngSubmit)="addItemToRestaurant(Item.value)" #Item="ngForm">
-    <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
-    <h2>{{item.name}}</h2>
-    <button type="submit" class="btn">Add</button>
-  </form>
+<button type="button" class="btn" (click)="showAddItems()">Add Items To Restaurant</button>
+<button type="button" class="btn" (click)="showAddDeals()">Add Deals to Restaurant</button>
+
+<div *ngIf="showItem">
+  <select name="itemType" #itemType (change)="loadItems(itemType.value)" class="form-control">
+    <option value="RecipeItem">Recipe</option>
+    <option value="DrinkItem">Drink</option>
+    <option value="SideItem">Side</option>
+  </select>
+  <div *ngFor="let item of items">
+    <form (ngSubmit)="addItemToRestaurant(Item.value)" #Item="ngForm">
+      <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
+      <h2>{{item.name}}</h2>
+      <button type="submit" class="btn">Add</button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="showDeal">
+  <select name="dealType" #dealType (change)="loadDeals(dealType.value)" class="form-control">
+    <option value="AmountDiscountDeal">AmountDiscount</option>
+    <option value="MealDiscountDeal">MealDiscount</option>
+  </select>
+  <div *ngIf="amtDeal">
+    <form (ngSubmit)="addAmtDealToRestaurant(ADeal.value)" #ADeal="ngForm">
+      <label for="eligibilityAmount">Eligibility Amount:</label>
+      <input type="number" step="2" name="eligibilityAmount" class="form-control" ngModel>
+      <br/>
+      <label for="discountAmount">Discount Amount:</label>
+      <input type="number" step="2" name="discountAmount" class="form-control" ngModel>
+      <br/>
+      <button type="submit" class="btn">Add</button>
+    </form>
+  </div>
+  <div *ngIf="mealDeal">
+    <form (ngSubmit)="addMealDealToRestaurant(MDeal.value)" #MDeal="ngForm">
+      <label for="discountAmount">Discount Amount:</label>
+      <input type="number" step="2" name="discountAmount" class="form-control" ngModel>
+      <br/>
+      <button type="submit" class="btn">Add</button>
+    </form>
+  </div>
 </div>
