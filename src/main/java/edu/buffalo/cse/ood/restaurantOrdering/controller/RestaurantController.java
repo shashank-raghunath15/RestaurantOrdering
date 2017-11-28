@@ -16,24 +16,34 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 @RestController
 @RequestMapping("/restaurant")
 public class RestaurantController extends Controller{
-
+	int size = 0;
 	@GetMapping("/")
 	public List<Restaurant> getAllRestaurants() {
 		return getRestaurantService().getAllRestaurants();
 	}
-
+	
+	/*@Requires("id != -1")
+	@Ensures({"result.getId() == old(id)","verifyAdd(restaurant)"})*/
 	@GetMapping("/{id}")
 	public Restaurant getRestaurant(@PathVariable Long id) {
 		return getRestaurantService().getRestaurantById(id);
 	}
+	
+	/*private boolean verifyAdd(Restaurant restaurant) {
+		List<Restaurant> restaurantList = getAllRestaurants();
+		return restaurantList.contains(restaurant);
+	}*/
 
 	@GetMapping("/name/{name}")
 	public Restaurant getRestaurantByName(@PathVariable String name){
 		return getRestaurantService().getRestaurantByName(name);
 	}
 	
+	/*@Requires("restaurant != null")
+	@Ensures({"size == old(size) + 1", "verifyAdd(restaurant)"})*/
 	@PostMapping("/")
 	public Restaurant addRestaurant(@RequestBody Restaurant Restaurant) {
+		size++;
 		return getRestaurantService().addRestaurant(Restaurant);
 	}
 
@@ -44,6 +54,7 @@ public class RestaurantController extends Controller{
 
 	@DeleteMapping("/{id}")
 	public void deleteRestaurant(@PathVariable Long id) {
+		size--;
 		getRestaurantService().deleteRestaurant(id);
 	}
 	

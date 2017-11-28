@@ -39,10 +39,10 @@ public class ItemController extends Controller {
 		return getItemService().addItem(item);
 	}
 
-	private boolean hasItem(Item item) {
+	/*private boolean hasItem(Item item) {
 		List<Item> items = getAllItems();
 		return items.contains(item);
-	}
+	}*/
 	
 	@PutMapping("/")
 	public void updateItem(@RequestBody Item item) {

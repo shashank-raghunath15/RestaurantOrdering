@@ -22,11 +22,19 @@ public class CustomerController extends Controller {
 	public List<Customer> getAllCustomers() {
 		return getCustomerService().getAllCustomers();
 	}
-
+	
+	/*@Requires("id != -1")
+	@Ensures("result.getId() == old(id), verifyCustomer(customer)")*/
 	@GetMapping("/{id}")
 	public Customer getCustomer(@PathVariable Long id) {
 		return getCustomerService().getCustomerById(id);
 	}
+	
+	/*
+	private boolean verifyCustomer(Customer customer) {
+		List<Customer> customers = getAllCustomers();
+		return customers.contains(customer);
+	}*/
 	
 	@PostMapping("/login")
 	public Long login(@RequestBody Login login) {
