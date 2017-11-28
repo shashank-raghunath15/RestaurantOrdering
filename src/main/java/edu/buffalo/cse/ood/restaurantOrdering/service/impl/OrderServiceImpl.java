@@ -17,7 +17,7 @@ public class OrderServiceImpl extends ServiceImpl implements OrderService {
 
 	@Override
 	public Order getOrderById(Long id) {
-		return getOrderRepository().getOne(id);
+		return getOrderRepository().findOne(id);
 	}
 
 	@Override

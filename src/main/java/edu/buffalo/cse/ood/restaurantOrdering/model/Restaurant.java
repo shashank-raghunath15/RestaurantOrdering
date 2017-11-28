@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Restaurant {
 	private RestaurantOwner owner;
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private List<Deal> availableDeals = new ArrayList<Deal>();
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Item> availableItems = new ArrayList<Item>();
 	@ElementCollection(targetClass = Day.class)
 	private List<Day> closedDays = new ArrayList<Day>();

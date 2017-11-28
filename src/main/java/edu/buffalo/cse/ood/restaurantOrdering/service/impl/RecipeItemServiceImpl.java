@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
-import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RecipeItemService;
 
 @Service
@@ -19,7 +18,7 @@ public class RecipeItemServiceImpl extends ServiceImpl implements RecipeItemServ
 
 	@Override
 	public RecipeItem getRecipeItemById(Long id) {
-		return getRecipeItemRepository().getOne(id);
+		return getRecipeItemRepository().findOne(id);
 	}
 
 	@Override
@@ -39,9 +38,9 @@ public class RecipeItemServiceImpl extends ServiceImpl implements RecipeItemServ
 
 	@Override
 	public List<RecipeItem> getRecipeItemsNew(Long id) {
-		Restaurant restaurant = getRestaurantRepository().getOne(id);
+		Restaurant restaurant = getRestaurantRepository().findOne(id);
 		List<RecipeItem> allItems = getRecipeItemRepository().findAll();
-		allItems.remove(restaurant.getAvailableItems());
+		allItems.removeAll(restaurant.getAvailableItems());
 		return allItems;
 	}
 

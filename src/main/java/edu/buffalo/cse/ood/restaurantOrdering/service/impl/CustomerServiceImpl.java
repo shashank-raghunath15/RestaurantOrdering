@@ -18,7 +18,7 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 
 	@Override
 	public Customer getCustomerById(Long id) {
-		return getCustomerRepository().getOne(id);
+		return getCustomerRepository().findOne(id);
 	}
 
 	@Override

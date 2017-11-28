@@ -21,7 +21,7 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 
 	@Override
 	public RestaurantOwner getRestaurantOwnerById(Long id) {
-		return getRestaurantOwnerRepository().getOne(id);
+		return getRestaurantOwnerRepository().findOne(id);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class RestaurantOwnerServiceImpl extends ServiceImpl implements Restauran
 
 	@Override
 	public Restaurant addItemToRestaurant(Long restaurantId, Item item) {
-		Restaurant restaurant = getRestaurantRepository().getOne(restaurantId);
-		item = getItemRepository().getOne(item.getId());
+		Restaurant restaurant = getRestaurantRepository().findOne(restaurantId);
+		item = getItemRepository().findOne(item.getId());
 		restaurant.getAvailableItems().add(item);
 		return getRestaurantRepository().save(restaurant);
 	}

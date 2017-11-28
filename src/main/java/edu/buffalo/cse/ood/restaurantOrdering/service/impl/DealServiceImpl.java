@@ -17,7 +17,7 @@ public class DealServiceImpl extends ServiceImpl implements DealService{
 
 	@Override
 	public Deal getDealById(Long id) {
-		return getDealRepository().getOne(id);
+		return getDealRepository().findOne(id);
 	}
 
 	@Override

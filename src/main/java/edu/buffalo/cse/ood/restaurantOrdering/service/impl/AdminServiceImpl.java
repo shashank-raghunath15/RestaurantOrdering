@@ -19,7 +19,7 @@ public class AdminServiceImpl extends ServiceImpl implements AdminService {
 
 	@Override
 	public Admin getAdminById(Long id) {
-		return getAdminRepository().getOne(id);
+		return getAdminRepository().findOne(id);
 	}
 
 	@Override

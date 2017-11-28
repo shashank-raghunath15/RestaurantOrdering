@@ -16,7 +16,7 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 
 	@Override
 	public Restaurant getRestaurantById(Long id) {
-		return getRestaurantRepository().getOne(id);
+		return getRestaurantRepository().findOne(id);
 	}
 
 	@Override
