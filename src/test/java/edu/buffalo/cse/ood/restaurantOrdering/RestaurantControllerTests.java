@@ -1,6 +1,7 @@
 package edu.buffalo.cse.ood.restaurantOrdering;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -10,188 +11,158 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.buffalo.cse.ood.restaurantOrdering.controller.Controller;
-import edu.buffalo.cse.ood.restaurantOrdering.controller.RestaurantController;
+import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
-import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantOwnerService;
-import edu.buffalo.cse.ood.restaurantOrdering.service.RestaurantService;
-import edu.buffalo.cse.ood.restaurantOrdering.service.impl.ServiceImpl;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = RestaurantController.class)
+@SpringBootTest(classes = RestaurantOrderingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application.test.properties")
 public class RestaurantControllerTests {
-	
-	@Autowired
-	private MockMvc mockMvc;
-		
-	@MockBean
-	private Controller controller;
-	
-	@MockBean
-	private ServiceImpl serviceImpl;
-	
-	@MockBean
-	private RestaurantService restaurantService;
-	
-	@MockBean
-	private RestaurantOwnerService ownerService;
-	
-	
+	@LocalServerPort
+	private int port;
+
+	TestRestTemplate restTemplate = new TestRestTemplate();
+
+	HttpHeaders headers = new HttpHeaders();
+
 	private static String RESTAURANT = "/restaurant/";
-	
+	private static String RESTAURANT_OWNER = "/restaurantOwner/";
+
+	private String createURLWithPort(String uri) {
+		return "http://localhost:" + port + uri;
+	}
+
 	@Test
 	public void testGetAllRestaurants() throws Exception {
+		
 		Restaurant restaurant1 = new Restaurant();
-		restaurant1.setName("South Campus Cafe");
-		restaurant1.setAddress("XYZ Street,Buffalo");
+		restaurant1.setAddress("1, New Road, Buffalo, NY");
+		restaurant1.setName("McD");
 		RestaurantOwner owner1 = new RestaurantOwner();
-		owner1.setName("ABCD");
-		owner1.setPassword("ABCD");
-		owner1.setUsername("ABCD");
+		owner1.setName("asdf");
+		owner1.setPassword("asdf");
+		owner1.setUsername("asdf");
 		restaurant1.setOwner(owner1);
+		HttpEntity<RestaurantOwner> entity3 = new HttpEntity<RestaurantOwner>(owner1, headers);
+		ResponseEntity<String> response3 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER), HttpMethod.POST, entity3,
+				String.class);
+		ObjectMapper obj3 = new ObjectMapper();
+		owner1 = obj3.readValue(response3.getBody(), RestaurantOwner.class);
+		restaurant1.setOwner(owner1);
+		HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);
+		ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
+				String.class);
 		
 		Restaurant restaurant2 = new Restaurant();
-		restaurant2.setName("North Campus Cafe");
-		restaurant2.setAddress("ABC Street,Buffalo");
+		restaurant2.setAddress("2, New Road, Buffalo, NY");
+		restaurant2.setName("Wendys");
 		RestaurantOwner owner2 = new RestaurantOwner();
-		owner2.setName("XYZ");
-		owner2.setPassword("XYZ");
-		owner2.setUsername("XYZ");
+		owner2.setName("dfgh");
+		owner2.setPassword("dfgh");
+		owner2.setUsername("dfgh");
 		restaurant2.setOwner(owner2);
+		HttpEntity<RestaurantOwner> entity9 = new HttpEntity<RestaurantOwner>(owner2, headers);
+		ResponseEntity<String> response9 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER), HttpMethod.POST, entity9,
+				String.class);
+		ObjectMapper objx = new ObjectMapper();
+		owner2 = objx.readValue(response9.getBody(), RestaurantOwner.class);
+		restaurant2.setOwner(owner2);
+
+		HttpEntity<Restaurant> entityx = new HttpEntity<Restaurant>(restaurant2, headers);
+		ResponseEntity<String> responsex = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entityx,
+				String.class);
 		
-		List<Restaurant> restaurants = new ArrayList<>();
-		restaurants.add(restaurant1);
-		restaurants.add(restaurant2);
-		
-		for(Restaurant restaurant : restaurants) {
-			restaurant.setOwner(ownerService.addRestaurantOwner(restaurant.getOwner()));
-			restaurant = restaurantService.addRestaurant(restaurant);
-		}
-		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(RESTAURANT).accept(MediaType.APPLICATION_JSON);
-		MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-		assertEquals(mvcResult.getResponse().getStatus(),HttpServletResponse.SC_OK);
-		String expectedResponse = "";
-		//copy this to expected response
-		System.out.println(mvcResult.getResponse().getContentAsString());
-		assertEquals(mvcResult.getResponse().getContentAsString(),expectedResponse);
-		
-		for(Restaurant restaurant: restaurants) {
-			ownerService.deleteRestaurantOwner(restaurant.getOwner().getId());
-			restaurantService.deleteRestaurant(restaurant.getId());
-		}
-	}
-	
-	@Test
-	public void testGetRestaurant() throws Exception {
-		Restaurant restaurant1 = new Restaurant();
-		restaurant1.setName("South Campus Cafe");
-		restaurant1.setAddress("XYZ Street,Buffalo");
-		RestaurantOwner owner1 = new RestaurantOwner();
-		owner1.setName("ABCD");
-		owner1.setPassword("ABCD");
-		owner1.setUsername("ABCD");
-		restaurant1.setOwner(owner1);
-		restaurant1.setOwner(ownerService.addRestaurantOwner(restaurant1.getOwner()));
-		restaurant1 = restaurantService.addRestaurant(restaurant1);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(RESTAURANT + restaurant1.getId()).accept(MediaType.APPLICATION_JSON);
-		MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-		String expectedResponse = "";
-		//copy this to expected response
-		System.out.println(mvcResult.getResponse().getContentAsString());
-		assertEquals(mvcResult.getResponse().getStatus(),HttpServletResponse.SC_OK);
-		assertEquals(mvcResult.getResponse().getContentAsString(),expectedResponse);
-		restaurantService.deleteRestaurant(restaurant1.getId());
-	}
-	
-	@Test
-	public void testAddRestaurant() throws Exception {
-		Restaurant restaurant1 = new Restaurant();
-		restaurant1.setName("South Campus Cafe");
-		restaurant1.setAddress("XYZ Street,Buffalo");
-		RestaurantOwner owner1 = new RestaurantOwner();
-		owner1.setName("ABCD");
-		owner1.setPassword("ABCD");
-		owner1.setUsername("ABCD");
-		restaurant1.setOwner(owner1);
-		restaurant1.setOwner(ownerService.addRestaurantOwner(restaurant1.getOwner()));
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.GET, entity,
+				String.class);
+		assertTrue(response.getBody().contains(restaurant1.getName())
+						&& response.getBody().contains(restaurant2.getName()));
 		ObjectMapper obj = new ObjectMapper();
-		obj.writeValueAsString(restaurant1);
-		String content = obj.writeValueAsString(restaurant1);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post(RESTAURANT).accept(MediaType.APPLICATION_JSON).content(content);
-		MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-		MockHttpServletResponse response = mvcResult.getResponse();
-		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-		List<Restaurant> restaurants = restaurantService.getAllRestaurants();
-		boolean exists = false;
-		Restaurant restaurantGet = null;
-		for(Restaurant restaurant : restaurants) {
-			if(restaurant.getName().equalsIgnoreCase(restaurant1.getName())) {
-				exists = true;
-				restaurantGet = restaurant;
-				break;
-			}
+		List<Restaurant> restaurantList = obj.readValue(response.getBody().toString(), new TypeReference<List<Restaurant>>(){});
+		for(Restaurant restaurant : restaurantList) {
+			HttpEntity<String> entity1 = new HttpEntity<String>(null, headers);
+			restTemplate.exchange(createURLWithPort(RESTAURANT + restaurant.getId()), HttpMethod.DELETE, entity1,
+				String.class);
 		}
-		assertTrue(exists);
-		restaurantService.deleteRestaurant(restaurantGet.getId());
 	}
+
 	
-	/*@Test
-	public void testUpdateRestaurant() throws Exception {
+	/*@Test public void testGetRestaurant() throws Exception {
 		Restaurant restaurant1 = new Restaurant();
-		restaurant1.setName("South Campus Cafe");
-		restaurant1.setAddress("XYZ Street,Buffalo");
+		restaurant1.setAddress("1, New Road, Buffalo, NY");
+		restaurant1.setName("McD");
 		RestaurantOwner owner1 = new RestaurantOwner();
-		owner1.setName("ABCD");
-		owner1.setPassword("ABCD");
-		owner1.setUsername("ABCD");
+		owner1.setName("asdf");
+		owner1.setPassword("asdf");
+		owner1.setUsername("asdf");
 		restaurant1.setOwner(owner1);
-		restaurant1.setOwner(ownerService.addRestaurantOwner(restaurant1.getOwner()));
-		restaurant1 = restaurantService.addRestaurant(restaurant1);
-		String content = "{\"name\" : \"South Campus Cafeteria\" , \"address\" : \"XYZ "
-				+ "Street,Buffalo\", \"ownerId\" :" + restaurant1.getOwner().getId()+ "}";
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.put(RESTAURANT).accept(MediaType.APPLICATION_JSON).content(content);
-		mockMvc.perform(requestBuilder);
-		Restaurant restaurantGet = restaurantService.getRestaurantById(restaurant1.getId());
-		assertFalse(restaurant1.getName().equals(restaurantGet.getName()));
-		restaurantService.deleteRestaurant(restaurantGet.getId());
-	}*/
-	
-	//TODO handle delete request
-	/*@Test
-	public void testDeleterestaurant() throws Exception {
-		Restaurant restaurant1 = new Restaurant();
-		restaurant1.setName("South Campus Cafe");
-		restaurant1.setAddress("XYZ Street,Buffalo");
-		RestaurantOwner owner1 = new RestaurantOwner();
-		owner1.setName("ABCD");
-		owner1.setPassword("ABCD");
-		owner1.setUsername("ABCD");
+		HttpEntity<RestaurantOwner> entity3 = new HttpEntity<RestaurantOwner>(owner1, headers);
+		ResponseEntity<String> response3 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER), HttpMethod.POST, entity3,
+				String.class);
+		ObjectMapper obj3 = new ObjectMapper();
+		owner1 = obj3.readValue(response3.getBody(), RestaurantOwner.class);
 		restaurant1.setOwner(owner1);
+		HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);
+		ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
+				String.class);
+		ObjectMapper objm = new ObjectMapper();
+		restaurant1 = objm.readValue(response4.getBody(), Restaurant.class);
 		restaurant1.setOwner(owner1);
-		restaurant1.setOwner(ownerService.addRestaurantOwner(restaurant1.getOwner()));
-		restaurant1 = restaurantService.addRestaurant(restaurant1);
-		String content = "";
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete(RESTAURANT).accept(MediaType.APPLICATION_JSON);
-		MvcResult mvcResult = mockMvc.perform(requestBuilder).andReturn();
-		MockHttpServletResponse response = mvcResult.getResponse();
-		restaurantService.deleteRestaurant(restaurant1.getId());
-	}*/
-	
-		
+		assertTrue(restaurant1.getId() > 0);
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RESTAURANT + restaurant1.getId()), HttpMethod.GET, entity,
+				String.class);
+		ObjectMapper obj = new ObjectMapper();
+		Restaurant restaurantGet = obj.readValue(response.getBody(),Restaurant.class);	
+		assertEquals(restaurant1.getId(),restaurantGet.getId());
+		HttpEntity<String> entity1 = new HttpEntity<String>(null, headers);
+		restTemplate.exchange(createURLWithPort(RESTAURANT + restaurant1.getId()), HttpMethod.DELETE, entity1,
+			String.class);
+	 }*/
+	  
+	  
+	  /*@Test public void testAddRestaurant() throws Exception { 
+		  Restaurant restaurant1 = new Restaurant();
+			restaurant1.setAddress("1, New Road, Buffalo, NY");
+			restaurant1.setName("McD");
+			RestaurantOwner owner1 = new RestaurantOwner();
+			owner1.setName("asdf");
+			owner1.setPassword("asdf");
+			owner1.setUsername("asdf");
+			restaurant1.setOwner(owner1);
+			HttpEntity<RestaurantOwner> entity3 = new HttpEntity<RestaurantOwner>(owner1, headers);
+			ResponseEntity<String> response3 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER), HttpMethod.POST, entity3,
+					String.class);
+			ObjectMapper obj3 = new ObjectMapper();
+			owner1 = obj3.readValue(response3.getBody(), RestaurantOwner.class);
+			restaurant1.setOwner(owner1);
+			System.out.println("ID is " + restaurant1.getId());
+			HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);
+			ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
+					String.class);
+		  assertTrue(response4.getBody().contains(restaurant1.getName()));
+		  ObjectMapper obj = new ObjectMapper();
+		  Restaurant restaurantNew = obj.readValue(response4.getBody(), Restaurant.class);
+		  System.out.println("ID is " + restaurantNew.getId() + " Yo " + response4.getBody() );
+		  assertTrue(restaurantNew.getId()>0);
+		  HttpEntity<String> entity2 = new HttpEntity<String>(null, headers);
+		  restTemplate.exchange(createURLWithPort(RESTAURANT + restaurantNew.getId()), HttpMethod.DELETE, entity2,
+			String.class);
+	  }*/
 }

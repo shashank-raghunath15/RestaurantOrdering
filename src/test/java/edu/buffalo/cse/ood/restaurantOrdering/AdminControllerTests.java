@@ -79,7 +79,7 @@ public class AdminControllerTests {
 				String.class);
 		assertTrue(
 				response.getBody().contains(admin1.getUsername()) && response.getBody().contains(admin2.getUsername())
-						&& response.getBody().contains(admin2.getUsername()));
+						&& response.getBody().contains(admin3.getUsername()));
 		ObjectMapper obj = new ObjectMapper();
 		List<Admin> adminList = obj.readValue(response.getBody().toString(), new TypeReference<List<Admin>>(){});
 		
