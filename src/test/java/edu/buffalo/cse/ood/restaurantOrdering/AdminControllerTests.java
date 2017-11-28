@@ -140,7 +140,8 @@ public class AdminControllerTests {
 			String.class);
 	  }
 	  
-	  @Test public void testAddAdmin() throws Exception { 
+	  @Test 
+	  public void testAddAdmin() throws Exception { 
 		  Admin admin1 = new Admin(); 
 		  admin1.setAddress("1, New Road, Buffalo, NY");
 		  admin1.setName("pqr"); 

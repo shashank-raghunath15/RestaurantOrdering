@@ -1,13 +1,8 @@
 package edu.buffalo.cse.ood.restaurantOrdering;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 

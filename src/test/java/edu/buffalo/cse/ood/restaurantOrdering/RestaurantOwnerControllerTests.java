@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
+import edu.buffalo.cse.ood.restaurantOrdering.model.DrinkItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
 @RunWith(SpringRunner.class)
@@ -42,6 +46,12 @@ public class RestaurantOwnerControllerTests {
 
 	private static String RESTAURANT_OWNER = "/restaurantOwner/";
 	private static String LOGIN = "/restaurantOwner/login/";
+	private static String RESTAURANT = "/restaurant/";
+	private static String ADD_RECIPE_ITEM = "/addRecipeItem";
+	private static String RECIPE_ITEM = "/recipeItem/";
+	private static String DRINK_ITEM = "/drinkItem/";
+	private static String ADD_DRINK_ITEM = "/addDrinkItem";
+
 
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;
@@ -139,7 +149,8 @@ public class RestaurantOwnerControllerTests {
 			String.class);
 	  }
 	  
-	  @Test public void testAddRestaurantOwner() throws Exception { 
+	  @Test 
+	  public void testAddRestaurantOwner() throws Exception { 
 		  RestaurantOwner restaurantOwner1 = new RestaurantOwner(); 
 		  restaurantOwner1.setAddress("3, New Road, Buffalo, NY");
 		  restaurantOwner1.setName("pqr"); 
@@ -155,4 +166,60 @@ public class RestaurantOwnerControllerTests {
 		  restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER + restaurantOwnerNew.getId()), HttpMethod.DELETE, entity2,
 			String.class);
 	  }
+	
+	  @Test 
+	  public void testRecipeItemToRestaurant() throws Exception { 
+		  Restaurant restaurant1 = new Restaurant();
+			restaurant1.setAddress("1, New Road, Buffalo, NY");
+			restaurant1.setName("McD");
+			RestaurantOwner owner1 = new RestaurantOwner();
+			owner1.setName("asdf");
+			owner1.setPassword("asdf");
+			owner1.setUsername("asdf");
+			restaurant1.setOwner(owner1);
+			HttpEntity<RestaurantOwner> entity3 = new HttpEntity<RestaurantOwner>(owner1, headers);
+			ResponseEntity<String> response3 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER), HttpMethod.POST, entity3,
+					String.class);
+			ObjectMapper obj3 = new ObjectMapper();
+			owner1 = obj3.readValue(response3.getBody(), RestaurantOwner.class);
+			restaurant1.setOwner(owner1);
+			
+			HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);
+			ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
+					String.class);
+			ObjectMapper obj = new ObjectMapper();
+			Restaurant res = obj.readValue(response4.getBody(), Restaurant.class);
+			assertTrue(res.getId()> 0);
+			
+			RecipeItem item1 = new RecipeItem();
+			item1.setName("Cheeseburger");
+			item1.setPrice(10.0);
+			
+			HttpEntity<RecipeItem> entity5 = new HttpEntity<RecipeItem>(item1, headers);
+			ResponseEntity<String> response5 = restTemplate.exchange(createURLWithPort(RECIPE_ITEM), HttpMethod.POST, entity5,
+					String.class);
+			ObjectMapper objx = new ObjectMapper();
+			RecipeItem newItem = objx.readValue(response5.getBody(), RecipeItem.class);
+			assertTrue(newItem.getId() > 0);	
+			
+			HttpEntity<RecipeItem> entity6 = new HttpEntity<RecipeItem>(newItem, headers);
+			ResponseEntity<String> response6 = restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER + res.getId() +ADD_RECIPE_ITEM), HttpMethod.POST, entity6,
+					String.class);
+			String expected = "{\"availableItems\":[{\"id\":1,\"name\":\"Cheeseburger\",\"price\":10,\"calories\":0}]}";
+			JSONAssert.assertEquals(expected, response6.getBody().toString(), false);
+			HttpEntity<String> entity2 = new HttpEntity<String>(null, headers);
+		  restTemplate.exchange(createURLWithPort(RESTAURANT_OWNER + owner1.getId()), HttpMethod.DELETE, entity2,
+			String.class);
+		  
+		  HttpEntity<String> entity12 = new HttpEntity<String>(null, headers);
+		  restTemplate.exchange(createURLWithPort(RESTAURANT + res.getId()), HttpMethod.DELETE, entity12,
+			String.class);
+		  
+		  HttpEntity<String> entity15 = new HttpEntity<String>(null, headers);
+		  restTemplate.exchange(createURLWithPort(RECIPE_ITEM + newItem.getId()), HttpMethod.DELETE, entity15,
+			String.class);  
+	  }
+	  
+	  
+	  
 }
