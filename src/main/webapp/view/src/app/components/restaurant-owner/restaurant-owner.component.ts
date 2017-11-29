@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RestaurantOwner } from '../../models/restaurantOwner';
 import { Restaurant } from '../../models/restaurant';
 import { RestaurantService } from '../../services/restaurant.service';
@@ -24,20 +25,25 @@ export class RestaurantOwnerComponent implements OnInit {
   recipeItems: Item[];
   drinkItems: Item[];
   sideItems: Item[];
-  showItem: boolean;
-  showDeal: boolean;
-  amtDeal: boolean;
-  mealDeal: boolean;
+  show: string;
+  deal: string;
   itemType: string;
+  msg: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private route: Router, private restaurantService: RestaurantService, private itemService: ItemService, private ownerService: RestaurantOwnerService, private dealService: DealService) { }
+  constructor(private route: Router, private restaurantService: RestaurantService, private itemService: ItemService, private ownerService: RestaurantOwnerService, private dealService: DealService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.data.subscribe(val => {
+      this.show = val.show;
+      this.deal = val.deal;
+    });
+  }
 
   ngOnInit() {
     if (sessionStorage.getItem('role') !== 'restaurantOwner') {
       this.route.navigateByUrl('');
     }
     this.owner = JSON.parse(sessionStorage.getItem('user'));
+    this.msg = localStorage.getItem('msg');
     this.restaurantService.getByOwnerId(this.owner.id).subscribe((res: Restaurant) => {
       this.restaurant = res;
       this.itemService.getRecipeItems(this.restaurant.id).subscribe((items: Item[]) => {
@@ -53,10 +59,7 @@ export class RestaurantOwnerComponent implements OnInit {
       });
     });
   }
-  showAddItems() {
-    this.showItem = true;
-    this.showDeal = false;
-  }
+
   loadItems(itemType: string) {
     this.itemType = itemType;
     if (itemType === 'RecipeItem') {
@@ -68,37 +71,23 @@ export class RestaurantOwnerComponent implements OnInit {
   }
 
   loadDeals(dealType: string) {
-    if (dealType === 'AmountDiscountDeal') {
-      this.showAmtDeal();
+    if (dealType === 'mealDiscountDeal') {
+      this.route.navigateByUrl('addMealDeal');
     } else {
-      this.showMealDeal();
+      this.route.navigateByUrl('addAmtDeal');
     }
   }
   addItemToRestaurant(item: Item) {
     item.itemType = this.itemType;
     this.ownerService.addItemToRestaurant(this.restaurant.id, item).subscribe(res => {
-      console.log(res);
+      localStorage.setItem('msg', 'Item added successfully');
+      this.route.navigateByUrl('restaurantOwner');
     });
   }
-  showAddDeals() {
-    this.showItem = false;
-    this.showDeal = true;
-    this.showAmtDeal();
-  }
-
-  showAmtDeal() {
-    this.amtDeal = true;
-    this.mealDeal = false;
-  }
-
-  showMealDeal() {
-    this.amtDeal = false;
-    this.mealDeal = true;
-  }
-
   addAmtDealToRestaurant(amtDeal: AmountDiscountDeal) {
     this.dealService.addAmtDeal(this.restaurant.id, amtDeal).subscribe((res: AmountDiscountDeal) => {
-      console.log(res);
+      localStorage.setItem('msg', 'Deal added successfully');
+      this.route.navigateByUrl('restaurantOwner');
     });
   }
 

@@ -1,8 +1,10 @@
-<button type="button" class="btn" (click)="showAddRestaurantOwner()">Add RestaurantOwner</button>
-<button type="button" class="btn" (click)="showAddItem()">Add Item</button>
-<button type="button" class="btn" (click)="showAddRestaurant()">Add Restaurant</button>
-
-<div *ngIf="showOwner">
+<button type="button" class="btn" routerLink="../addOwner">Add RestaurantOwner</button>
+<button type="button" routerLink="../addItem" class="btn">Add Item</button>
+<button type="button" class="btn" routerLink="../addRestaurant">Add Restaurant</button>
+<div *ngIf="msg">
+  <h2>{{msg}}</h2>
+</div>
+<div *ngIf="show === 'owner'">
   <form #addOwner="ngForm" (ngSubmit)="addRestaurantOwner(addOwner.value)">
     <label for="username">Username:</label>
     <input type="text" name="username" ngModel>
@@ -19,7 +21,7 @@
   </form>
 </div>
 
-<div *ngIf="showItem">
+<div *ngIf="show === 'item'">
   <form #Item="ngForm" (ngSubmit)="addItem(Item.value)">
     <label for="itemType">Type:</label>
     <select name="itemType" ngModel>
@@ -40,7 +42,7 @@
     <button type="submit" class="btn">Add</button>
   </form>
 </div>
-<div *ngIf="showRestaurant">
+<div *ngIf="show === 'restaurant'">
   <form #Restaurant="ngForm" (ngSubmit)="addRestaurant(Restaurant.value)">
     <label for="name">Name:</label>
     <input type="text" name="name" ngModel>
@@ -56,3 +58,4 @@
     <button type="submit" class="btn">Add</button>
   </form>
 </div>
+<a routerLink="/logout">Logout</a>

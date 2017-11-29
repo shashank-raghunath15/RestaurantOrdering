@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Admin } from '../../models/admin';
 import { Item } from '../../models/item';
 import { RestaurantOwner } from '../../models/restaurantOwner';
@@ -16,13 +17,17 @@ import { ItemService } from '../../services/item.service';
 export class AdminComponent implements OnInit {
 
   admin: Admin;
-  showOwner: boolean;
-  showItem: boolean;
-  showRestaurant: boolean;
+  show: string;
   owners: RestaurantOwner[];
+  msg: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private route: Router, private ownerService: RestaurantOwnerService, private itemService: ItemService, private restaurantService: RestaurantService) { }
+  constructor(private route: Router, private ownerService: RestaurantOwnerService, private itemService: ItemService, private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute) {
+    activatedRoute.data.subscribe((val => {
+      this.show = val.show;
+    }));
+    this.msg = localStorage.getItem('msg');
+  }
 
   ngOnInit() {
     if (sessionStorage.getItem('role') !== 'admin') {
@@ -33,34 +38,23 @@ export class AdminComponent implements OnInit {
       this.owners = owners;
     });
   }
-  showAddRestaurantOwner() {
-    this.showOwner = true;
-    this.showItem = false;
-    this.showRestaurant = false;
-  }
+
   addRestaurantOwner(owner: RestaurantOwner) {
     this.ownerService.addRestaurantOwner(owner).subscribe(res => {
-      console.log(res);
+      localStorage.setItem('msg', 'Owner added successfully');
+      this.route.navigateByUrl('admin');
     });
-  }
-  showAddItem() {
-    this.showOwner = false;
-    this.showItem = true;
-    this.showRestaurant = false;
   }
   addItem(item: Item) {
     this.itemService.addItem(item).subscribe(res => {
-      console.log(res);
+      localStorage.setItem('msg', 'Item added successfully');
+      this.route.navigateByUrl('admin');
     });
-  }
-  showAddRestaurant() {
-    this.showOwner = false;
-    this.showItem = false;
-    this.showRestaurant = true;
   }
   addRestaurant(restaurant: Restaurant) {
     this.restaurantService.addRestaurant(restaurant).subscribe(res => {
-      console.log(res);
+      localStorage.setItem('msg', 'Restaurant added successfully');
+      this.route.navigateByUrl('admin');
     });
   }
 }

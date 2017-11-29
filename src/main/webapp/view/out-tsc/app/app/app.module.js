@@ -22,6 +22,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { RestaurantOwnerComponent } from './components/restaurant-owner/restaurant-owner.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LogoutComponent } from './components/logout/logout.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -32,16 +33,25 @@ AppModule = __decorate([
             AdminComponent,
             CustomerComponent,
             RestaurantOwnerComponent,
-            NotFoundComponent
+            NotFoundComponent,
+            LogoutComponent
         ],
         imports: [
             BrowserModule,
             FormsModule,
             HttpClientModule,
             RouterModule.forRoot([
+                { path: 'logout', component: LogoutComponent },
                 { path: 'admin', component: AdminComponent },
+                { path: 'addItem', component: AdminComponent, data: { show: 'item' } },
+                { path: 'addOwner', component: AdminComponent, data: { show: 'owner' } },
+                { path: 'addRestaurant', component: AdminComponent, data: { show: 'restaurant' } },
                 { path: 'customer', component: CustomerComponent },
                 { path: 'restaurantOwner', component: RestaurantOwnerComponent },
+                { path: 'addItemRestaurant', component: RestaurantOwnerComponent, data: { show: 'item' } },
+                { path: 'addDealRestaurant', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'amt' } },
+                { path: 'addAmtDeal', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'amt' } },
+                { path: 'addMealDeal', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'meal' } },
                 { path: '', component: LoginComponent },
                 { path: '**', component: NotFoundComponent }
             ])

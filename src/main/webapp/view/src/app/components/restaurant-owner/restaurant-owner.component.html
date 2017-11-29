@@ -1,7 +1,9 @@
-<button type="button" class="btn" (click)="showAddItems()">Add Items To Restaurant</button>
-<button type="button" class="btn" (click)="showAddDeals()">Add Deals to Restaurant</button>
-
-<div *ngIf="showItem">
+<button type="button" class="btn" routerLink="../addItemRestaurant">Add Items To Restaurant</button>
+<button type="button" class="btn" routerLink="../addDealRestaurant">Add Deals to Restaurant</button>
+<div *ngIf="msg">
+  <h3>{{msg}}</h3>
+</div>
+<div *ngIf="show === 'item'">
   <select name="itemType" #itemType (change)="loadItems(itemType.value)" class="form-control">
     <option value="RecipeItem">Recipe</option>
     <option value="DrinkItem">Drink</option>
@@ -16,12 +18,12 @@
   </div>
 </div>
 
-<div *ngIf="showDeal">
+<div *ngIf="show === 'deal'">
   <select name="dealType" #dealType (change)="loadDeals(dealType.value)" class="form-control">
-    <option value="AmountDiscountDeal">AmountDiscount</option>
-    <option value="MealDiscountDeal">MealDiscount</option>
+    <option value="amountDiscountDeal">AmountDiscount</option>
+    <option value="mealDiscountDeal">MealDiscount</option>
   </select>
-  <div *ngIf="amtDeal">
+  <div *ngIf="deal === 'amt'">
     <form (ngSubmit)="addAmtDealToRestaurant(ADeal.value)" #ADeal="ngForm">
       <label for="eligibilityAmount">Eligibility Amount:</label>
       <input type="number" step="2" name="eligibilityAmount" class="form-control" ngModel>
@@ -32,7 +34,7 @@
       <button type="submit" class="btn">Add</button>
     </form>
   </div>
-  <div *ngIf="mealDeal">
+  <div *ngIf="deal === 'meal'">
     <form (ngSubmit)="addMealDealToRestaurant(MDeal.value)" #MDeal="ngForm">
       <label for="discountAmount">Discount Amount:</label>
       <input type="number" step="2" name="discountAmount" class="form-control" ngModel>
@@ -41,3 +43,4 @@
     </form>
   </div>
 </div>
+<a routerLink="/logout">Logout</a>
