@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
@@ -40,6 +41,7 @@ AppModule = __decorate([
             BrowserModule,
             FormsModule,
             HttpClientModule,
+            NgbModule.forRoot(),
             RouterModule.forRoot([
                 { path: 'logout', component: LogoutComponent },
                 { path: 'admin', component: AdminComponent },

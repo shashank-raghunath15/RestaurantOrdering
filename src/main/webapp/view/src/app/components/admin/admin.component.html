@@ -2,7 +2,7 @@
 <button type="button" routerLink="../addItem" class="btn">Add Item</button>
 <button type="button" class="btn" routerLink="../addRestaurant">Add Restaurant</button>
 <div *ngIf="msg">
-  <h2>{{msg}}</h2>
+  <h3>{{msg}}</h3>
 </div>
 <div *ngIf="show === 'owner'">
   <form #addOwner="ngForm" (ngSubmit)="addRestaurantOwner(addOwner.value)">
