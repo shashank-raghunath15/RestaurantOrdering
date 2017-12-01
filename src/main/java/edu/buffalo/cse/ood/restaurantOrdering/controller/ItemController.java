@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.java.contract.Ensures;
-import com.google.java.contract.Requires;
-
 import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 
 @RestController

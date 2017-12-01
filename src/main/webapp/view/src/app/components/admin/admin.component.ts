@@ -8,6 +8,8 @@ import { Restaurant } from '../../models/restaurant';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { RestaurantService } from '../../services/restaurant.service';
 import { ItemService } from '../../services/item.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   selector: 'app-admin',
@@ -19,14 +21,12 @@ export class AdminComponent implements OnInit {
   admin: Admin;
   show: string;
   owners: RestaurantOwner[];
-  msg: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private route: Router, private ownerService: RestaurantOwnerService, private itemService: ItemService, private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute) {
+  constructor(private route: Router, private ownerService: RestaurantOwnerService, private itemService: ItemService, private restaurantService: RestaurantService, private activatedRoute: ActivatedRoute, private modalService: NgbModal) {
     activatedRoute.data.subscribe((val => {
       this.show = val.show;
     }));
-    this.msg = localStorage.getItem('msg');
   }
 
   ngOnInit() {
@@ -41,20 +41,25 @@ export class AdminComponent implements OnInit {
 
   addRestaurantOwner(owner: RestaurantOwner) {
     this.ownerService.addRestaurantOwner(owner).subscribe(res => {
-      localStorage.setItem('msg', 'Owner added successfully');
+      this.message('Owner added successfully');
       this.route.navigateByUrl('admin');
     });
   }
   addItem(item: Item) {
     this.itemService.addItem(item).subscribe(res => {
-      localStorage.setItem('msg', 'Item added successfully');
+      this.message('Item added successfully');
       this.route.navigateByUrl('admin');
     });
   }
   addRestaurant(restaurant: Restaurant) {
     this.restaurantService.addRestaurant(restaurant).subscribe(res => {
-      localStorage.setItem('msg', 'Restaurant added successfully');
+      this.message('Restaurant added successfully');
       this.route.navigateByUrl('admin');
     });
+  }
+
+  message(msg: string) {
+    const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+    modalRef.componentInstance.msg = msg;
   }
 }

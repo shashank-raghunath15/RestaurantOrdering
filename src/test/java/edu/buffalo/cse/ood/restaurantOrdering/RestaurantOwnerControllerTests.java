@@ -27,7 +27,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
-import edu.buffalo.cse.ood.restaurantOrdering.model.DrinkItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
@@ -49,9 +48,9 @@ public class RestaurantOwnerControllerTests {
 	private static String RESTAURANT = "/restaurant/";
 	private static String ADD_RECIPE_ITEM = "/addRecipeItem";
 	private static String RECIPE_ITEM = "/recipeItem/";
-	private static String DRINK_ITEM = "/drinkItem/";
+/*	private static String DRINK_ITEM = "/drinkItem/";
 	private static String ADD_DRINK_ITEM = "/addDrinkItem";
-
+*/
 
 	private String createURLWithPort(String uri) {
 		return "http://localhost:" + port + uri;

@@ -9,15 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 let CustomerComponent = class CustomerComponent {
-    constructor(route) {
+    constructor(route, modalService) {
         this.route = route;
+        this.modalService = modalService;
     }
     ngOnInit() {
         if (sessionStorage.getItem('role') !== 'customer') {
             this.route.navigateByUrl('');
         }
         this.customer = JSON.parse(sessionStorage.getItem('user'));
+    }
+    message(msg) {
+        const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+        modalRef.componentInstance.msg = msg;
     }
 };
 CustomerComponent = __decorate([
@@ -26,7 +33,7 @@ CustomerComponent = __decorate([
         templateUrl: './customer.component.html',
         styleUrls: ['./customer.component.css']
     }),
-    __metadata("design:paramtypes", [Router])
+    __metadata("design:paramtypes", [Router, NgbModal])
 ], CustomerComponent);
 export { CustomerComponent };
 //# sourceMappingURL=customer.component.js.map

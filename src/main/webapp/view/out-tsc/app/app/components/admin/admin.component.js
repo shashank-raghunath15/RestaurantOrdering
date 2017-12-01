@@ -13,18 +13,20 @@ import { ActivatedRoute } from '@angular/router';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { RestaurantService } from '../../services/restaurant.service';
 import { ItemService } from '../../services/item.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 let AdminComponent = class AdminComponent {
     // tslint:disable-next-line:max-line-length
-    constructor(route, ownerService, itemService, restaurantService, activatedRoute) {
+    constructor(route, ownerService, itemService, restaurantService, activatedRoute, modalService) {
         this.route = route;
         this.ownerService = ownerService;
         this.itemService = itemService;
         this.restaurantService = restaurantService;
         this.activatedRoute = activatedRoute;
+        this.modalService = modalService;
         activatedRoute.data.subscribe((val => {
             this.show = val.show;
         }));
-        this.msg = localStorage.getItem('msg');
     }
     ngOnInit() {
         if (sessionStorage.getItem('role') !== 'admin') {
@@ -37,21 +39,25 @@ let AdminComponent = class AdminComponent {
     }
     addRestaurantOwner(owner) {
         this.ownerService.addRestaurantOwner(owner).subscribe(res => {
-            localStorage.setItem('msg', 'Owner added successfully');
+            this.message('Owner added successfully');
             this.route.navigateByUrl('admin');
         });
     }
     addItem(item) {
         this.itemService.addItem(item).subscribe(res => {
-            localStorage.setItem('msg', 'Item added successfully');
+            this.message('Item added successfully');
             this.route.navigateByUrl('admin');
         });
     }
     addRestaurant(restaurant) {
         this.restaurantService.addRestaurant(restaurant).subscribe(res => {
-            localStorage.setItem('msg', 'Restaurant added successfully');
+            this.message('Restaurant added successfully');
             this.route.navigateByUrl('admin');
         });
+    }
+    message(msg) {
+        const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+        modalRef.componentInstance.msg = msg;
     }
 };
 AdminComponent = __decorate([
@@ -60,7 +66,7 @@ AdminComponent = __decorate([
         templateUrl: './admin.component.html',
         styleUrls: ['./admin.component.css']
     }),
-    __metadata("design:paramtypes", [Router, RestaurantOwnerService, ItemService, RestaurantService, ActivatedRoute])
+    __metadata("design:paramtypes", [Router, RestaurantOwnerService, ItemService, RestaurantService, ActivatedRoute, NgbModal])
 ], AdminComponent);
 export { AdminComponent };
 //# sourceMappingURL=admin.component.js.map

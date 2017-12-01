@@ -24,6 +24,7 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { RestaurantOwnerComponent } from './components/restaurant-owner/restaurant-owner.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { ModalComponent } from './components/modal/modal.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -35,7 +36,8 @@ AppModule = __decorate([
             CustomerComponent,
             RestaurantOwnerComponent,
             NotFoundComponent,
-            LogoutComponent
+            LogoutComponent,
+            ModalComponent
         ],
         imports: [
             BrowserModule,
@@ -58,8 +60,10 @@ AppModule = __decorate([
                 { path: '**', component: NotFoundComponent }
             ])
         ],
+        // tslint:disable-next-line:max-line-length
         providers: [LoginService, AdminService, CustomerService, RestaurantOwnerService, RestaurantService, DealService, ItemService],
-        bootstrap: [AppComponent]
+        bootstrap: [AppComponent],
+        entryComponents: [ModalComponent]
     })
 ], AppModule);
 export { AppModule };

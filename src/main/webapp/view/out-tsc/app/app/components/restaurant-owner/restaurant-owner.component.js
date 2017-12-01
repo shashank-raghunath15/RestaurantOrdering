@@ -14,15 +14,18 @@ import { RestaurantService } from '../../services/restaurant.service';
 import { DealService } from '../../services/deal.service';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { ItemService } from '../../services/item.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 let RestaurantOwnerComponent = class RestaurantOwnerComponent {
     // tslint:disable-next-line:max-line-length
-    constructor(route, restaurantService, itemService, ownerService, dealService, activatedRoute) {
+    constructor(route, restaurantService, itemService, ownerService, dealService, activatedRoute, modalService) {
         this.route = route;
         this.restaurantService = restaurantService;
         this.itemService = itemService;
         this.ownerService = ownerService;
         this.dealService = dealService;
         this.activatedRoute = activatedRoute;
+        this.modalService = modalService;
         this.activatedRoute.data.subscribe(val => {
             this.show = val.show;
             this.deal = val.deal;
@@ -33,7 +36,6 @@ let RestaurantOwnerComponent = class RestaurantOwnerComponent {
             this.route.navigateByUrl('');
         }
         this.owner = JSON.parse(sessionStorage.getItem('user'));
-        this.msg = localStorage.getItem('msg');
         this.restaurantService.getByOwnerId(this.owner.id).subscribe((res) => {
             this.restaurant = res;
             this.itemService.getRecipeItems(this.restaurant.id).subscribe((items) => {
@@ -71,20 +73,25 @@ let RestaurantOwnerComponent = class RestaurantOwnerComponent {
     addItemToRestaurant(item) {
         item.itemType = this.itemType;
         this.ownerService.addItemToRestaurant(this.restaurant.id, item).subscribe(res => {
-            localStorage.setItem('msg', 'Item added successfully');
+            this.message('Item added successfully');
             this.route.navigateByUrl('restaurantOwner');
         });
     }
     addAmtDealToRestaurant(amtDeal) {
         this.dealService.addAmtDeal(this.restaurant.id, amtDeal).subscribe((res) => {
-            localStorage.setItem('msg', 'Deal added successfully');
+            this.message('Deal added successfully');
             this.route.navigateByUrl('restaurantOwner');
         });
     }
     addMealDealToRestaurant(mealDeal) {
         this.dealService.addMealDeal(this.restaurant.id, mealDeal).subscribe((res) => {
-            console.log(res);
+            this.message('Deal added successfully');
+            this.route.navigateByUrl('restaurantOwner');
         });
+    }
+    message(msg) {
+        const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+        modalRef.componentInstance.msg = msg;
     }
 };
 RestaurantOwnerComponent = __decorate([
@@ -93,7 +100,7 @@ RestaurantOwnerComponent = __decorate([
         templateUrl: './restaurant-owner.component.html',
         styleUrls: ['./restaurant-owner.component.css']
     }),
-    __metadata("design:paramtypes", [Router, RestaurantService, ItemService, RestaurantOwnerService, DealService, ActivatedRoute])
+    __metadata("design:paramtypes", [Router, RestaurantService, ItemService, RestaurantOwnerService, DealService, ActivatedRoute, NgbModal])
 ], RestaurantOwnerComponent);
 export { RestaurantOwnerComponent };
 //# sourceMappingURL=restaurant-owner.component.js.map

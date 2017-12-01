@@ -1,7 +1,6 @@
 import { Restaurant } from './restaurant';
+import { Deal } from './deal';
 
-export interface AmountDiscountDeal {
-    id: number;
+export interface AmountDiscountDeal extends Deal {
     eligibilityAmount: number;
-    discountAmount: number;
 }

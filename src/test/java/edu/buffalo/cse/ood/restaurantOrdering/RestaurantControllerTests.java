@@ -1,6 +1,6 @@
 package edu.buffalo.cse.ood.restaurantOrdering;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -59,10 +59,10 @@ public class RestaurantControllerTests {
 		ObjectMapper obj3 = new ObjectMapper();
 		owner1 = obj3.readValue(response3.getBody(), RestaurantOwner.class);
 		restaurant1.setOwner(owner1);
-		HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);
-		ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
+/*		HttpEntity<Restaurant> entity4 = new HttpEntity<Restaurant>(restaurant1, headers);*/
+/*		ResponseEntity<String> response4 = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entity4,
 				String.class);
-		
+		*/
 		Restaurant restaurant2 = new Restaurant();
 		restaurant2.setAddress("2, New Road, Buffalo, NY");
 		restaurant2.setName("Wendys");
@@ -78,10 +78,10 @@ public class RestaurantControllerTests {
 		owner2 = objx.readValue(response9.getBody(), RestaurantOwner.class);
 		restaurant2.setOwner(owner2);
 
-		HttpEntity<Restaurant> entityx = new HttpEntity<Restaurant>(restaurant2, headers);
-		ResponseEntity<String> responsex = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entityx,
+/*		HttpEntity<Restaurant> entityx = new HttpEntity<Restaurant>(restaurant2, headers);*/
+	/*	ResponseEntity<String> responsex = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.POST, entityx,
 				String.class);
-		
+		*/
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 		ResponseEntity<String> response = restTemplate.exchange(createURLWithPort(RESTAURANT), HttpMethod.GET, entity,
 				String.class);

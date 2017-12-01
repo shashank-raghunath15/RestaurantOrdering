@@ -8,9 +8,10 @@ import { DealService } from '../../services/deal.service';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item';
-import { Deal } from '../../models/deal';
 import { AmountDiscountDeal } from '../../models/amountDiscountDeal';
 import { MealDiscountDeal } from '../../models/mealDiscountDeal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   selector: 'app-restaurant-owner',
@@ -28,10 +29,9 @@ export class RestaurantOwnerComponent implements OnInit {
   show: string;
   deal: string;
   itemType: string;
-  msg: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private route: Router, private restaurantService: RestaurantService, private itemService: ItemService, private ownerService: RestaurantOwnerService, private dealService: DealService, private activatedRoute: ActivatedRoute) {
+  constructor(private route: Router, private restaurantService: RestaurantService, private itemService: ItemService, private ownerService: RestaurantOwnerService, private dealService: DealService, private activatedRoute: ActivatedRoute, private modalService: NgbModal) {
     this.activatedRoute.data.subscribe(val => {
       this.show = val.show;
       this.deal = val.deal;
@@ -43,7 +43,6 @@ export class RestaurantOwnerComponent implements OnInit {
       this.route.navigateByUrl('');
     }
     this.owner = JSON.parse(sessionStorage.getItem('user'));
-    this.msg = localStorage.getItem('msg');
     this.restaurantService.getByOwnerId(this.owner.id).subscribe((res: Restaurant) => {
       this.restaurant = res;
       this.itemService.getRecipeItems(this.restaurant.id).subscribe((items: Item[]) => {
@@ -80,20 +79,25 @@ export class RestaurantOwnerComponent implements OnInit {
   addItemToRestaurant(item: Item) {
     item.itemType = this.itemType;
     this.ownerService.addItemToRestaurant(this.restaurant.id, item).subscribe(res => {
-      localStorage.setItem('msg', 'Item added successfully');
+      this.message('Item added successfully');
       this.route.navigateByUrl('restaurantOwner');
     });
   }
   addAmtDealToRestaurant(amtDeal: AmountDiscountDeal) {
     this.dealService.addAmtDeal(this.restaurant.id, amtDeal).subscribe((res: AmountDiscountDeal) => {
-      localStorage.setItem('msg', 'Deal added successfully');
+      this.message('Deal added successfully');
       this.route.navigateByUrl('restaurantOwner');
     });
   }
 
   addMealDealToRestaurant(mealDeal: MealDiscountDeal) {
     this.dealService.addMealDeal(this.restaurant.id, mealDeal).subscribe((res: MealDiscountDeal) => {
-      console.log(res);
+      this.message('Deal added successfully');
+      this.route.navigateByUrl('restaurantOwner');
     });
+  }
+  message(msg: string) {
+    const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+    modalRef.componentInstance.msg = msg;
   }
 }

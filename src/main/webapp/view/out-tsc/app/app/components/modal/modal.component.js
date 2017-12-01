@@ -7,20 +7,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-let AppComponent = class AppComponent {
-    constructor(ngbModal) {
-        this.ngbModal = ngbModal;
+import { Component, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+let ModalComponent = class ModalComponent {
+    constructor(activeModal) {
+        this.activeModal = activeModal;
     }
 };
-AppComponent = __decorate([
+__decorate([
+    Input(),
+    __metadata("design:type", Object)
+], ModalComponent.prototype, "msg", void 0);
+ModalComponent = __decorate([
     Component({
-        selector: 'app-root',
-        templateUrl: './app.component.html',
-        styleUrls: ['./app.component.css']
+        selector: 'app-modal',
+        templateUrl: './modal.component.html',
+        styleUrls: ['./modal.component.css']
     }),
-    __metadata("design:paramtypes", [NgbModal])
-], AppComponent);
-export { AppComponent };
-//# sourceMappingURL=app.component.js.map
+    __metadata("design:paramtypes", [NgbActiveModal])
+], ModalComponent);
+export { ModalComponent };
+//# sourceMappingURL=modal.component.js.map

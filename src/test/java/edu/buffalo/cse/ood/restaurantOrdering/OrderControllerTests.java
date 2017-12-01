@@ -2,9 +2,6 @@ package edu.buffalo.cse.ood.restaurantOrdering;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.context.embedded.LocalServerPort;
@@ -21,9 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
-import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Order;
-import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RestaurantOwner;
 
@@ -41,7 +36,7 @@ public class OrderControllerTests {
 
 	private static String ORDER = "/order/";
 	private static String CUSTOMER = "/customer/";
-	private static String RECIPE_ITEM = "/recipeItem/";
+	/*private static String RECIPE_ITEM = "/recipeItem/";*/
 	private static String RESTAURANT_OWNER = "/restaurantOwner/";
 	private static String RESTAURANT = "/restaurant/";
 

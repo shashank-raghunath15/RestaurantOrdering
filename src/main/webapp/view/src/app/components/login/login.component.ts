@@ -10,7 +10,8 @@ import { AdminService } from '../../services/admin.service';
 import { CustomerService } from '../../services/customer.service';
 import { RestaurantOwnerService } from '../../services/restaurant-owner.service';
 import { RestaurantOwner } from '../../models/restaurantOwner';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,8 @@ import { RestaurantOwner } from '../../models/restaurantOwner';
 })
 export class LoginComponent implements OnInit {
 
-  private login: Login;
-  private id: Number;
-
   // tslint:disable-next-line:max-line-length
-  constructor(private loginService: LoginService, private adminService: AdminService, private route: Router, private customerService: CustomerService, private ownerService: RestaurantOwnerService) {
+  constructor(private loginService: LoginService, private adminService: AdminService, private route: Router, private customerService: CustomerService, private ownerService: RestaurantOwnerService, private modalService: NgbModal) {
 
   }
 
@@ -34,7 +32,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(login).subscribe((id: Number) => {
       if (id === -1) {
-        alert('login failed');
+        this.message('Username and or password is incorrect! Did you sign up?');
       } else {
         if (login.role === 'admin') {
           this.adminService.getAdmin(id).subscribe((admin: Admin) => {
@@ -60,9 +58,16 @@ export class LoginComponent implements OnInit {
   }
 
   registerCustomer(customer: Customer) {
-    this.customerService.addCustomer(customer).subscribe(res => {
-      console.log(res);
+    this.customerService.addCustomer(customer).subscribe((cus: Customer) => {
+      const login = new Login();
+      login.username = customer.username;
+      login.password = customer.password;
+      login.role = 'customer';
+      this.logIn(login);
     });
   }
-
+  message(msg: string) {
+    const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
+    modalRef.componentInstance.msg = msg;
+  }
 }
