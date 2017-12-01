@@ -43,19 +43,28 @@ export class AdminComponent implements OnInit {
     this.ownerService.addRestaurantOwner(owner).subscribe(res => {
       this.message('Owner added successfully');
       this.route.navigateByUrl('admin');
-    });
+    },
+      error => {
+        this.message('Owner with username already exists');
+      });
   }
   addItem(item: Item) {
     this.itemService.addItem(item).subscribe(res => {
       this.message('Item added successfully');
       this.route.navigateByUrl('admin');
-    });
+    },
+      error => {
+        this.message('Item with name already exists');
+      });
   }
   addRestaurant(restaurant: Restaurant) {
     this.restaurantService.addRestaurant(restaurant).subscribe(res => {
       this.message('Restaurant added successfully');
       this.route.navigateByUrl('admin');
-    });
+    },
+      error => {
+        this.message('Restaurant with name already exists');
+      });
   }
 
   message(msg: string) {

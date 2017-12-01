@@ -49,14 +49,26 @@ export class RestaurantOwnerComponent implements OnInit {
         this.recipeItems = items;
         this.items = items;
         this.itemType = 'RecipeItem';
-      });
+      },
+        error => {
+          this.message('Server Error');
+        });
       this.itemService.getDrinkItems(this.restaurant.id).subscribe((items: Item[]) => {
         this.drinkItems = items;
-      });
+      },
+        error => {
+          this.message('Server Error');
+        });
       this.itemService.getSideItems(this.restaurant.id).subscribe((items: Item[]) => {
         this.sideItems = items;
+      },
+        error => {
+          this.message('Server Error');
+        });
+    },
+      error => {
+        this.message('Server Error');
       });
-    });
   }
 
   loadItems(itemType: string) {
@@ -81,20 +93,29 @@ export class RestaurantOwnerComponent implements OnInit {
     this.ownerService.addItemToRestaurant(this.restaurant.id, item).subscribe(res => {
       this.message('Item added successfully');
       this.route.navigateByUrl('restaurantOwner');
-    });
+    },
+      error => {
+        this.message('Some error in adding item');
+      });
   }
   addAmtDealToRestaurant(amtDeal: AmountDiscountDeal) {
     this.dealService.addAmtDeal(this.restaurant.id, amtDeal).subscribe((res: AmountDiscountDeal) => {
       this.message('Deal added successfully');
       this.route.navigateByUrl('restaurantOwner');
-    });
+    },
+      error => {
+        this.message('Some error in adding deal');
+      });
   }
 
   addMealDealToRestaurant(mealDeal: MealDiscountDeal) {
     this.dealService.addMealDeal(this.restaurant.id, mealDeal).subscribe((res: MealDiscountDeal) => {
       this.message('Deal added successfully');
       this.route.navigateByUrl('restaurantOwner');
-    });
+    },
+      error => {
+        this.message('Some error in adding deal');
+      });
   }
   message(msg: string) {
     const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });

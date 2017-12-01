@@ -54,7 +54,10 @@ export class LoginComponent implements OnInit {
           });
         }
       }
-    });
+    },
+      error => {
+        this.message('Server Error. Please try later.');
+      });
   }
 
   registerCustomer(customer: Customer) {
@@ -64,7 +67,10 @@ export class LoginComponent implements OnInit {
       login.password = customer.password;
       login.role = 'customer';
       this.logIn(login);
-    });
+    },
+      error => {
+        this.message('Username already exists. Please choose different username.');
+      });
   }
   message(msg: string) {
     const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });

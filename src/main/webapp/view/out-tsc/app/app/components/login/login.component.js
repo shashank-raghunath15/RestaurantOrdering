@@ -56,6 +56,8 @@ let LoginComponent = class LoginComponent {
                     });
                 }
             }
+        }, error => {
+            this.message('Server Error. Please try later.');
         });
     }
     registerCustomer(customer) {
@@ -65,6 +67,8 @@ let LoginComponent = class LoginComponent {
             login.password = customer.password;
             login.role = 'customer';
             this.logIn(login);
+        }, error => {
+            this.message('Username already exists. Please choose different username.');
         });
     }
     message(msg) {

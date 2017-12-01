@@ -41,18 +41,24 @@ let AdminComponent = class AdminComponent {
         this.ownerService.addRestaurantOwner(owner).subscribe(res => {
             this.message('Owner added successfully');
             this.route.navigateByUrl('admin');
+        }, error => {
+            this.message('Owner with username already exists');
         });
     }
     addItem(item) {
         this.itemService.addItem(item).subscribe(res => {
             this.message('Item added successfully');
             this.route.navigateByUrl('admin');
+        }, error => {
+            this.message('Item with name already exists');
         });
     }
     addRestaurant(restaurant) {
         this.restaurantService.addRestaurant(restaurant).subscribe(res => {
             this.message('Restaurant added successfully');
             this.route.navigateByUrl('admin');
+        }, error => {
+            this.message('Restaurant with name already exists');
         });
     }
     message(msg) {
