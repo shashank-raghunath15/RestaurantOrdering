@@ -50,7 +50,7 @@ AppModule = __decorate([
                 { path: 'addItem', component: AdminComponent, data: { show: 'item' } },
                 { path: 'addOwner', component: AdminComponent, data: { show: 'owner' } },
                 { path: 'addRestaurant', component: AdminComponent, data: { show: 'restaurant' } },
-                { path: 'customer', component: CustomerComponent },
+                { path: 'customer', component: CustomerComponent, data: { show: 'items' } },
                 { path: 'restaurantOwner', component: RestaurantOwnerComponent },
                 { path: 'addItemRestaurant', component: RestaurantOwnerComponent, data: { show: 'item' } },
                 { path: 'addDealRestaurant', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'amt' } },

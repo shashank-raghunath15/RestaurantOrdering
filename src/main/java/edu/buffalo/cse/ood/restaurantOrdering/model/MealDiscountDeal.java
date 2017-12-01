@@ -15,5 +15,4 @@ import lombok.EqualsAndHashCode;
 @Scope("prototype")
 public class MealDiscountDeal extends Deal{
 
-	private long discountAmount;
 }

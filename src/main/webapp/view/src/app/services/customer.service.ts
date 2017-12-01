@@ -11,7 +11,11 @@ export class CustomerService {
     return this.http.post('http://localhost:8080/customer/', customer);
   }
 
-  getCustomer(id: Number) {
+  getCustomer(id: number) {
     return this.http.get('http://localhost:8080/customer/' + id);
+  }
+
+  getOrders(id: number) {
+    return this.http.get('http://localhost:8080/customer/getOrders/' + id);
   }
 }

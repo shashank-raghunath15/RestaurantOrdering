@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.buffalo.cse.ood.restaurantOrdering.dto.Login;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
+import edu.buffalo.cse.ood.restaurantOrdering.model.Order;
 
 @RestController
 @RequestMapping("/customer")
@@ -22,20 +23,17 @@ public class CustomerController extends Controller {
 	public List<Customer> getAllCustomers() {
 		return getCustomerService().getAllCustomers();
 	}
-	
-	/*@Requires("id != -1")
-	@Ensures("result.getId() == old(id), verifyCustomer(customer)")*/
+
+	/*
+	 * @Requires("id != -1")
+	 * 
+	 * @Ensures("result.getId() == old(id), verifyCustomer(customer)")
+	 */
 	@GetMapping("/{id}")
 	public Customer getCustomer(@PathVariable Long id) {
 		return getCustomerService().getCustomerById(id);
 	}
-	
-	/*
-	private boolean verifyCustomer(Customer customer) {
-		List<Customer> customers = getAllCustomers();
-		return customers.contains(customer);
-	}*/
-	
+
 	@PostMapping("/login")
 	public Long login(@RequestBody Login login) {
 		return getCustomerService().login(login);
@@ -54,5 +52,10 @@ public class CustomerController extends Controller {
 	@DeleteMapping("/{id}")
 	public void deleteCustomer(@PathVariable Long id) {
 		getCustomerService().deleteCustomer(id);
+	}
+
+	@GetMapping("/getOrders/{id}")
+	public List<Order> getOrders(@PathVariable Long id) {
+		return getCustomerService().getCustomerById(id).getOrders();
 	}
 }

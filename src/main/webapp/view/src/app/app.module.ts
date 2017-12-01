@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -44,7 +44,7 @@ import { ModalComponent } from './components/modal/modal.component';
       { path: 'addItem', component: AdminComponent, data: { show: 'item' } },
       { path: 'addOwner', component: AdminComponent, data: { show: 'owner' } },
       { path: 'addRestaurant', component: AdminComponent, data: { show: 'restaurant' } },
-      { path: 'customer', component: CustomerComponent },
+      { path: 'customer', component: CustomerComponent, data: { show: 'items' } },
       { path: 'restaurantOwner', component: RestaurantOwnerComponent },
       { path: 'addItemRestaurant', component: RestaurantOwnerComponent, data: { show: 'item' } },
       { path: 'addDealRestaurant', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'amt' } },

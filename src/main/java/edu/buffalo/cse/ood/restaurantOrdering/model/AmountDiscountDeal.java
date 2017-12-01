@@ -9,12 +9,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Component
 @Scope("prototype")
-public class AmountDiscountDeal extends Deal{
+public class AmountDiscountDeal extends Deal {
 
 	private double eligibilityAmount;
-	private double discountAmount;
 }

@@ -11,36 +11,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.buffalo.cse.ood.restaurantOrdering.model.Order;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 
 @RestController
 @RequestMapping("/restaurant")
-public class RestaurantController extends Controller{
+public class RestaurantController extends Controller {
 	int size = 0;
+
 	@GetMapping("/")
 	public List<Restaurant> getAllRestaurants() {
 		return getRestaurantService().getAllRestaurants();
 	}
-	
-	/*@Requires("id != -1")
-	@Ensures({"result.getId() == old(id)","verifyAdd(restaurant)"})*/
+
+	/*
+	 * @Requires("id != -1")
+	 * 
+	 * @Ensures({"result.getId() == old(id)","verifyAdd(restaurant)"})
+	 */
 	@GetMapping("/{id}")
 	public Restaurant getRestaurant(@PathVariable Long id) {
 		return getRestaurantService().getRestaurantById(id);
 	}
-	
-	/*private boolean verifyAdd(Restaurant restaurant) {
-		List<Restaurant> restaurantList = getAllRestaurants();
-		return restaurantList.contains(restaurant);
-	}*/
+
+	/*
+	 * private boolean verifyAdd(Restaurant restaurant) { List<Restaurant>
+	 * restaurantList = getAllRestaurants(); return
+	 * restaurantList.contains(restaurant); }
+	 */
 
 	@GetMapping("/name/{name}")
-	public Restaurant getRestaurantByName(@PathVariable String name){
+	public Restaurant getRestaurantByName(@PathVariable String name) {
 		return getRestaurantService().getRestaurantByName(name);
 	}
-	
-	/*@Requires("restaurant != null")
-	@Ensures({"size == old(size) + 1", "verifyAdd(restaurant)"})*/
+
+	/*
+	 * @Requires("restaurant != null")
+	 * 
+	 * @Ensures({"size == old(size) + 1", "verifyAdd(restaurant)"})
+	 */
 	@PostMapping("/")
 	public Restaurant addRestaurant(@RequestBody Restaurant Restaurant) {
 		size++;
@@ -57,9 +66,14 @@ public class RestaurantController extends Controller{
 		size--;
 		getRestaurantService().deleteRestaurant(id);
 	}
-	
+
 	@GetMapping("/owner/{id}")
-	public Restaurant getRestaurantByOwnerId(@PathVariable Long id){
+	public Restaurant getRestaurantByOwnerId(@PathVariable Long id) {
 		return getRestaurantService().getByOwnerId(id);
+	}
+
+	@PostMapping("/applyDeal")
+	public Order applyDeal(@RequestBody Order order) {
+		return getRestaurantService().applyDeal(order);
 	}
 }

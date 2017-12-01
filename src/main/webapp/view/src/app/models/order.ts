@@ -1,7 +1,16 @@
-export interface Admin {
+import { Customer } from './customer';
+import { Restaurant } from './restaurant';
+import { Item } from './item';
+
+export class Order {
+
   id: number;
-  name: string;
-  username: string;
-  password: string;
-  address: string;
+  customer: Customer;
+  restaurant: Restaurant;
+  items: Item[];
+  totalPrice: number;
+
+  constructor() {
+    this.totalPrice = 0.0;
+  }
 }

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   logIn(login: Login) {
 
-    this.loginService.login(login).subscribe((id: Number) => {
+    this.loginService.login(login).subscribe((id: number) => {
       if (id === -1) {
         this.message('Username and or password is incorrect! Did you sign up?');
       } else {

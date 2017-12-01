@@ -23,4 +23,6 @@ public abstract class Deal {
 	@ManyToOne
 	@JoinColumn(name="restaurantId")
 	private Restaurant restaurant;
+	
+	private double discountAmount;
 }

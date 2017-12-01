@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -43,5 +45,6 @@ public class Restaurant {
 	@ElementCollection(targetClass = Day.class)
 	private List<Day> closedDays = new ArrayList<Day>();
 	@OneToMany(mappedBy = "restaurant")
+	@JsonIgnore
 	private List<Order> allOrders = new ArrayList<Order>();
 }

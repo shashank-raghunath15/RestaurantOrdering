@@ -15,4 +15,40 @@
     </div>
 </nav>
 <div class="container">
+    <div *ngIf="show === 'items'">
+        <p>Welcome {{customer.name}}, what would you like to order today?</p>
+        <br/>
+        <p>Select Restaurant</p>
+        <select [(ngModel)]="restaurant" class="form-control col-xs-4" aria-placeholder="Select Restaurant" (change)="loadItems(restaurant)">
+            <option *ngFor="let restaurant of restaurants" [ngValue]="restaurant">{{restaurant.name}}</option>
+        </select>
+
+        <div *ngIf='showItems'>
+            <div *ngFor="let item of items">
+                <br/>
+                <form (ngSubmit)="addItemToOrder(Item.value)" #Item="ngForm">
+                    <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
+                    <p>{{item.name}}</p>
+                    <p>Calories: {{item.calories}}</p>
+                    <p>Price: ${{item.price}}</p>
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+                </form>
+            </div>
+            <br/>
+            <form (ngSubmit)="doneItems()">
+                <button type="submit" class="btn btn-lg btn-success btn-block">Done</button>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="show === 'order'">
+        <p>Your cart is ready: </p>
+        <div *ngFor="let item of orderItems">
+            <br/>
+            <p>{{item.name}}</p>
+            <p>Calories: {{item.calories}}</p>
+            <p>Price: ${{item.price}}</p>
+        </div>
+        <br/>
+        <p>Total Price: ${{order.totalPrice}}</p>
+    </div>
 </div>

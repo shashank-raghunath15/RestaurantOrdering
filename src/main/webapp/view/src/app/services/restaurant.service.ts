@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Restaurant } from '../models/restaurant';
+import { Order } from '../models/order';
 
 @Injectable()
 export class RestaurantService {
@@ -15,4 +16,11 @@ export class RestaurantService {
     return this.http.get('http://localhost:8080/restaurant/owner/' + id);
   }
 
+  getAllRestaurants() {
+    return this.http.get('http://localhost:8080/restaurant/');
+  }
+
+  applyDeal(order: Order) {
+    return this.http.post('http://localhost:8080/restaurant/applyDeal/', order);
+  }
 }
