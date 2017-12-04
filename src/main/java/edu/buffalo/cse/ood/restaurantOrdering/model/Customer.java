@@ -25,4 +25,5 @@ public class Customer extends Person{
 	@OneToMany(mappedBy="customer")
 	private List<Order> orders = new ArrayList<Order>();
 	
+	private String feedBack;
 }

@@ -15,14 +15,16 @@ import { RestaurantService } from '../../services/restaurant.service';
 import { CustomerService } from '../../services/customer.service';
 import { Order } from '../../models/order';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from '../../services/order.service';
 let CustomerComponent = class CustomerComponent {
     // tslint:disable-next-line:max-line-length
-    constructor(route, modalService, restaurantService, customerService, activatedRoute) {
+    constructor(route, modalService, restaurantService, customerService, activatedRoute, orderService) {
         this.route = route;
         this.modalService = modalService;
         this.restaurantService = restaurantService;
         this.customerService = customerService;
         this.activatedRoute = activatedRoute;
+        this.orderService = orderService;
         this.orderItems = new Array();
         this.order = new Order();
         restaurantService.getAllRestaurants().subscribe((res) => {
@@ -44,11 +46,12 @@ let CustomerComponent = class CustomerComponent {
     loadItems(restaurant) {
         this.showItems = false;
         this.items = restaurant.availableItems;
+        this.restaurant = restaurant;
         this.order.restaurant = restaurant;
         this.showItems = true;
     }
     addItemToOrder(id) {
-        const item = this.items.filter(itm => id === id)[0];
+        const item = this.items.filter(itm => itm.id === id.id)[0];
         this.orderItems.push(item);
         this.order.totalPrice += item.price;
         this.message(item.name + ' added to cart successfully');
@@ -65,6 +68,31 @@ let CustomerComponent = class CustomerComponent {
         const modalRef = this.modalService.open(ModalComponent, { windowClass: 'dark-modal' });
         modalRef.componentInstance.msg = msg;
     }
+    orderDone() {
+        this.orderService.addOrder(this.order).subscribe((res) => {
+            this.message('Order successfull. Your Order Id is: ' + res.id);
+            this.show = 'items';
+            this.order = new Order();
+            this.orderItems = new Array();
+            this.order.restaurant = this.restaurant;
+            this.route.navigateByUrl('customer');
+        });
+    }
+    reOrder(order) {
+        this.orderService.reOrder(order).subscribe((res) => {
+            this.message('Order successfull. Your Order Id is: ' + res.id);
+            this.show = 'items';
+            this.route.navigateByUrl('customer');
+        });
+    }
+    recordfeedBack(customer) {
+        this.customer.feedBack = customer.feedBack;
+        this.customerService.recordFeedBack(this.customer).subscribe((cus) => {
+            this.show = 'items';
+            this.message('We appreciate your feedback. It has been recorded successfully');
+            this.route.navigateByUrl('customer');
+        });
+    }
 };
 CustomerComponent = __decorate([
     Component({
@@ -72,7 +100,7 @@ CustomerComponent = __decorate([
         templateUrl: './customer.component.html',
         styleUrls: ['./customer.component.css']
     }),
-    __metadata("design:paramtypes", [Router, NgbModal, RestaurantService, CustomerService, ActivatedRoute])
+    __metadata("design:paramtypes", [Router, NgbModal, RestaurantService, CustomerService, ActivatedRoute, OrderService])
 ], CustomerComponent);
 export { CustomerComponent };
 //# sourceMappingURL=customer.component.js.map

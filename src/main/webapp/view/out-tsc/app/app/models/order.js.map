@@ -1,1 +1,1 @@
-{"version":3,"file":"order.js","sourceRoot":"","sources":["../../../../../eclipse:RestaurantOrdering/src/main/webapp/view/src/app/models/order.ts"],"names":[],"mappings":"AAIA,MAAM;IAQJ;QACE,IAAI,CAAC,UAAU,GAAG,GAAG,CAAC;IACxB,CAAC;CACF"}
+{"version":3,"file":"order.js","sourceRoot":"","sources":["../../../../../eclipse:RestaurantOrdering/src/main/webapp/view/src/app/models/order.ts"],"names":[],"mappings":"AAKA,MAAM;IASJ;QACE,IAAI,CAAC,UAAU,GAAG,GAAG,CAAC;IACxB,CAAC;CACF"}

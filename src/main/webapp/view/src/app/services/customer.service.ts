@@ -18,4 +18,8 @@ export class CustomerService {
   getOrders(id: number) {
     return this.http.get('http://localhost:8080/customer/getOrders/' + id);
   }
+
+  recordFeedBack(customer: Customer) {
+    return this.http.post('http://localhost:8080/customer/feedBack/', customer);
+  }
 }

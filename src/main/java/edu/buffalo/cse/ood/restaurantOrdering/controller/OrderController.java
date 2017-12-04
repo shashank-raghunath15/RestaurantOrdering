@@ -41,4 +41,9 @@ public class OrderController extends Controller {
 	public void deleteOrder(@PathVariable Long id) {
 		getOrderService().deleteOrder(id);
 	}
+	
+	@PostMapping("/reOrder")
+	public Order reOrder(@RequestBody Order order){
+		return getOrderService().reOrder(order);
+	}
 }

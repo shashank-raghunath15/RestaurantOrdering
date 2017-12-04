@@ -22,6 +22,9 @@ let CustomerService = class CustomerService {
     getOrders(id) {
         return this.http.get('http://localhost:8080/customer/getOrders/' + id);
     }
+    recordFeedBack(customer) {
+        return this.http.post('http://localhost:8080/customer/feedBack/', customer);
+    }
 };
 CustomerService = __decorate([
     Injectable(),

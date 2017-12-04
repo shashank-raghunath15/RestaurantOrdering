@@ -39,6 +39,7 @@ public class AmountDiscountDealServiceImpl extends ServiceImpl implements Amount
 	@Override
 	public Restaurant addAmountDiscountDealToRestaurant(Long restaurantId, AmountDiscountDeal deal) {
 		Restaurant restaurant = getRestaurantRepository().findOne(restaurantId);
+		deal.setRestaurant(restaurant);
 		restaurant.getAvailableDeals().add(deal);
 		return getRestaurantRepository().save(restaurant);
 	}

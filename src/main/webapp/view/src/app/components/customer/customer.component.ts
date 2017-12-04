@@ -9,6 +9,7 @@ import { Restaurant } from '../../models/restaurant';
 import { Item } from '../../models/item';
 import { Order } from '../../models/order';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-customer',
@@ -19,6 +20,7 @@ export class CustomerComponent implements OnInit {
 
   customer: Customer;
   restaurants: Restaurant[];
+  restaurant: Restaurant;
   items: Item[];
   showItems: boolean;
   orderItems: Item[] = new Array();
@@ -26,7 +28,7 @@ export class CustomerComponent implements OnInit {
   pastOrders: Order[];
   show: string;
   // tslint:disable-next-line:max-line-length
-  constructor(private route: Router, private modalService: NgbModal, private restaurantService: RestaurantService, private customerService: CustomerService, private activatedRoute: ActivatedRoute) {
+  constructor(private route: Router, private modalService: NgbModal, private restaurantService: RestaurantService, private customerService: CustomerService, private activatedRoute: ActivatedRoute, private orderService: OrderService) {
     restaurantService.getAllRestaurants().subscribe((res: Restaurant[]) => {
       this.restaurants = res;
     }, error => { });
@@ -47,12 +49,13 @@ export class CustomerComponent implements OnInit {
   loadItems(restaurant: Restaurant) {
     this.showItems = false;
     this.items = restaurant.availableItems;
+    this.restaurant = restaurant;
     this.order.restaurant = restaurant;
     this.showItems = true;
   }
 
-  addItemToOrder(id: number) {
-    const item = this.items.filter(itm => id === id)[0];
+  addItemToOrder(id: object) {
+    const item = this.items.filter(itm => itm.id === id.id)[0];
     this.orderItems.push(item);
     this.order.totalPrice += item.price;
     this.message(item.name + ' added to cart successfully');
@@ -73,4 +76,30 @@ export class CustomerComponent implements OnInit {
     modalRef.componentInstance.msg = msg;
   }
 
+  orderDone() {
+    this.orderService.addOrder(this.order).subscribe((res: Order) => {
+      this.message('Order successfull. Your Order Id is: ' + res.id);
+      this.show = 'items';
+      this.order = new Order();
+      this.orderItems = new Array();
+      this.order.restaurant = this.restaurant;
+      this.route.navigateByUrl('customer');
+    });
+  }
+  reOrder(order: Order) {
+    this.orderService.reOrder(order).subscribe((res: Order) => {
+      this.message('Order successfull. Your Order Id is: ' + res.id);
+      this.show = 'items';
+      this.route.navigateByUrl('customer');
+    });
+  }
+
+  recordfeedBack(customer: Customer) {
+    this.customer.feedBack = customer.feedBack;
+    this.customerService.recordFeedBack(this.customer).subscribe((cus: Customer) => {
+      this.show = 'items';
+      this.message('We appreciate your feedback. It has been recorded successfully');
+      this.route.navigateByUrl('customer');
+    });
+  }
 }

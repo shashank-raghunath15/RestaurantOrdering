@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginService } from './services/login.service';
 import { AdminService } from './services/admin.service';
+import { OrderService } from './services/order.service';
 import { CustomerService } from './services/customer.service';
 import { RestaurantOwnerService } from './services/restaurant-owner.service';
 import { RestaurantService } from './services/restaurant.service';
@@ -51,6 +52,8 @@ AppModule = __decorate([
                 { path: 'addOwner', component: AdminComponent, data: { show: 'owner' } },
                 { path: 'addRestaurant', component: AdminComponent, data: { show: 'restaurant' } },
                 { path: 'customer', component: CustomerComponent, data: { show: 'items' } },
+                { path: 'pastOrders', component: CustomerComponent, data: { show: 'pastOrders' } },
+                { path: 'feedBack', component: CustomerComponent, data: { show: 'feedBack' } },
                 { path: 'restaurantOwner', component: RestaurantOwnerComponent },
                 { path: 'addItemRestaurant', component: RestaurantOwnerComponent, data: { show: 'item' } },
                 { path: 'addDealRestaurant', component: RestaurantOwnerComponent, data: { show: 'deal', deal: 'amt' } },
@@ -61,7 +64,7 @@ AppModule = __decorate([
             ])
         ],
         // tslint:disable-next-line:max-line-length
-        providers: [LoginService, AdminService, CustomerService, RestaurantOwnerService, RestaurantService, DealService, ItemService],
+        providers: [LoginService, AdminService, CustomerService, RestaurantOwnerService, RestaurantService, DealService, ItemService, OrderService],
         bootstrap: [AppComponent],
         entryComponents: [ModalComponent]
     })

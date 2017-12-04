@@ -58,4 +58,9 @@ public class CustomerController extends Controller {
 	public List<Order> getOrders(@PathVariable Long id) {
 		return getCustomerService().getCustomerById(id).getOrders();
 	}
+	
+	@PostMapping("/feedBack")
+	public Customer feedBack(@RequestBody Customer customer){
+		return getCustomerService().feedBack(customer);
+	}
 }

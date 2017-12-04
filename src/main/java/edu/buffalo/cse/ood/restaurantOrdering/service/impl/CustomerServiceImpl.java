@@ -10,7 +10,7 @@ import edu.buffalo.cse.ood.restaurantOrdering.model.Customer;
 import edu.buffalo.cse.ood.restaurantOrdering.service.CustomerService;
 
 @Service
-public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
+public class CustomerServiceImpl extends ServiceImpl implements CustomerService {
 	@Override
 	public List<Customer> getAllCustomers() {
 		return getCustomerRepository().findAll();
@@ -36,7 +36,7 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 	public void deleteCustomer(Long id) {
 		getCustomerRepository().delete(id);
 	}
-	
+
 	@Override
 	public Long login(Login login) {
 		Customer customer = getCustomerRepository().findByUsername(login.getUsername());
@@ -46,5 +46,12 @@ public class CustomerServiceImpl extends ServiceImpl implements CustomerService{
 			}
 		}
 		return -1l;
+	}
+
+	@Override
+	public Customer feedBack(Customer customer) {
+		Customer customer2 = getCustomerRepository().getOne(customer.getId());
+		customer2.setFeedBack(customer.getFeedBack());
+		return getCustomerRepository().saveAndFlush(customer2);
 	}
 }

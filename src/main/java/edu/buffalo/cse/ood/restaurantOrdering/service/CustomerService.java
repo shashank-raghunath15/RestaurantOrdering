@@ -11,4 +11,5 @@ public interface CustomerService extends LoginService{
 	public Customer addCustomer(Customer customer);
 	public void updateCustomer(Customer customer);
 	public void deleteCustomer(Long id);
+	public Customer feedBack(Customer customer);
 }

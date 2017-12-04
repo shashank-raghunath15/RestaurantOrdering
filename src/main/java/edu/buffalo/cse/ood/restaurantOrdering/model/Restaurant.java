@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -29,7 +30,7 @@ import lombok.Data;
 public class Restaurant {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 	@Column(nullable = false, unique = true)
 	private String name;
@@ -40,11 +41,11 @@ public class Restaurant {
 	private RestaurantOwner owner;
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
 	private List<Deal> availableDeals = new ArrayList<Deal>();
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Item> availableItems = new ArrayList<Item>();
 	@ElementCollection(targetClass = Day.class)
 	private List<Day> closedDays = new ArrayList<Day>();
-	@OneToMany(mappedBy = "restaurant")
+	@ManyToMany(mappedBy = "restaurant")
 	@JsonIgnore
 	private List<Order> allOrders = new ArrayList<Order>();
 }

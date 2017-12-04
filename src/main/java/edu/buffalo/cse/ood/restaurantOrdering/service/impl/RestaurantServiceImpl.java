@@ -54,44 +54,49 @@ public class RestaurantServiceImpl extends ServiceImpl implements RestaurantServ
 
 	@Override
 	public Order applyDeal(Order order) {
-		Restaurant restaurant = getRestaurantRepository().getOne(order.getRestaurant().getId());
-		List<Deal> deals = restaurant.getAvailableDeals();
-		List<Item> items = order.getItems();
-		int recipeItemCount = 0;
-		int drinkItemCount = 0;
-		int sideItemCount = 0;
-		List<Deal> applicableDeals = new ArrayList<Deal>();
 
-		for (Item item : items) {
-			item = getItemRepository().getOne(item.getId());
-			if (item instanceof RecipeItem) {
-				recipeItemCount++;
-			} else if (item instanceof DrinkItem) {
-				drinkItemCount++;
-			} else {
-				sideItemCount++;
-			}
-		}
+		List<Deal> deals = getDealRepository().findByRestaurantId(order.getRestaurant().getId());
+		if (deals != null && !deals.isEmpty()) {
+			List<Item> items = order.getItems();
+			int recipeItemCount = 0;
+			int drinkItemCount = 0;
+			int sideItemCount = 0;
+			List<Deal> applicableDeals = new ArrayList<Deal>();
 
-		for (Deal deal : deals) {
-			if (deal instanceof MealDiscountDeal) {
-				if (recipeItemCount > 0 && drinkItemCount > 0 && sideItemCount > 0) {
-					applicableDeals.add(deal);
-				}
-			} else {
-				AmountDiscountDeal amtDeal = (AmountDiscountDeal) deal;
-				if (order.getTotalPrice() >= amtDeal.getEligibilityAmount()) {
-					applicableDeals.add(deal);
+			for (Item item : items) {
+				item = getItemRepository().getOne(item.getId());
+				if (item instanceof RecipeItem) {
+					recipeItemCount++;
+				} else if (item instanceof DrinkItem) {
+					drinkItemCount++;
+				} else {
+					sideItemCount++;
 				}
 			}
-		}
-		Deal maxDiscountDeal = applicableDeals.get(0);
-		for (Deal deal : applicableDeals) {
-			if (maxDiscountDeal.getDiscountAmount() < deal.getDiscountAmount()) {
-				maxDiscountDeal = deal;
+
+			for (Deal deal : deals) {
+				if (deal instanceof MealDiscountDeal) {
+					if (recipeItemCount > 0 && drinkItemCount > 0 && sideItemCount > 0) {
+						applicableDeals.add(deal);
+					}
+				} else {
+					AmountDiscountDeal amtDeal = (AmountDiscountDeal) deal;
+					if (order.getTotalPrice() >= amtDeal.getEligibilityAmount()) {
+						applicableDeals.add(deal);
+					}
+				}
 			}
+			if (!applicableDeals.isEmpty()) {
+				Deal maxDiscountDeal = applicableDeals.get(0);
+				for (Deal deal : applicableDeals) {
+					if (maxDiscountDeal.getDiscountAmount() < deal.getDiscountAmount()) {
+						maxDiscountDeal = deal;
+					}
+				}
+				order.setDeal(maxDiscountDeal);
+			}
+			return order;
 		}
-		order.setDeal(maxDiscountDeal);
 		return order;
 	}
 

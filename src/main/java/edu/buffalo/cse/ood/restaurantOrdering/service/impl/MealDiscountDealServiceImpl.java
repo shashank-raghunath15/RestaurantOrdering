@@ -39,6 +39,7 @@ public class MealDiscountDealServiceImpl extends ServiceImpl implements MealDisc
 	@Override
 	public Restaurant addMealDiscountDealToRestaurant(Long restaurantId, MealDiscountDeal deal) {
 		Restaurant restaurant = getRestaurantRepository().findOne(restaurantId);
+		deal.setRestaurant(restaurant);
 		restaurant.getAvailableDeals().add(deal);
 		return getRestaurantRepository().save(restaurant);
 	}

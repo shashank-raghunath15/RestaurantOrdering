@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +15,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Component
 @Scope("prototype")
+@JsonDeserialize(as = SideItem.class)
 public class SideItem extends Item{
 
 }
