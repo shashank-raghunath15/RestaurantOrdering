@@ -51,7 +51,7 @@ let CustomerComponent = class CustomerComponent {
         this.showItems = true;
     }
     addItemToOrder(id) {
-        const item = this.items.filter(itm => itm.id === id.id)[0];
+        const item = this.items.filter(itm => itm.id === id['id'])[0];
         this.orderItems.push(item);
         this.order.totalPrice += item.price;
         this.message(item.name + ' added to cart successfully');

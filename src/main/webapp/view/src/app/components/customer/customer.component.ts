@@ -54,8 +54,8 @@ export class CustomerComponent implements OnInit {
     this.showItems = true;
   }
 
-  addItemToOrder(id: object) {
-    const item = this.items.filter(itm => itm.id === id.id)[0];
+  addItemToOrder(id: Object) {
+    const item = this.items.filter(itm => itm.id === id['id'])[0];
     this.orderItems.push(item);
     this.order.totalPrice += item.price;
     this.message(item.name + ' added to cart successfully');

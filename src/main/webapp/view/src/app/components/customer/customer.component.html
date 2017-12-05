@@ -35,7 +35,7 @@
         <div *ngIf='showItems'>
             <div *ngFor="let item of items">
                 <br/>
-                <form (ngSubmit)="addItemToOrder(Item.value)" #Item="ngForm">
+                <form (ngSubmit)="addItemToOrder(Itm.value)" #Itm="ngForm">
                     <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
                     <p>{{item.name}}</p>
                     <p>Calories: {{item.calories}}</p>
