@@ -25,7 +25,7 @@
 </nav>
 <div class="container">
     <div *ngIf="show === 'items'">
-        <p>Welcome {{customer.name}}, what would you like to order today?</p>
+        <p>Welcome {{customer.name}}, where would you like to order today?</p>
         <br/>
         <p>Select Restaurant</p>
         <select [(ngModel)]="restaurant" class="form-control col-xs-4" aria-placeholder="Select Restaurant" (change)="loadItems(restaurant)">

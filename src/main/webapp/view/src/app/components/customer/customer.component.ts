@@ -78,7 +78,7 @@ export class CustomerComponent implements OnInit {
 
   orderDone() {
     this.orderService.addOrder(this.order).subscribe((res: Order) => {
-      this.message('Order successfull. Your Order Id is: ' + res.id);
+      this.message('Order successful. Your Order Id is: ' + res.id);
       this.show = 'items';
       this.order = new Order();
       this.orderItems = new Array();
@@ -88,7 +88,7 @@ export class CustomerComponent implements OnInit {
   }
   reOrder(order: Order) {
     this.orderService.reOrder(order).subscribe((res: Order) => {
-      this.message('Order successfull. Your Order Id is: ' + res.id);
+      this.message('Order successful. Your Order Id is: ' + res.id);
       this.show = 'items';
       this.route.navigateByUrl('customer');
     });
