@@ -44,9 +44,11 @@
                 </form>
             </div>
             <br/>
-            <form (ngSubmit)="doneItems()">
-                <button type="submit" class="btn btn-lg btn-success btn-block">Done</button>
-            </form>
+            <div *ngIf="orderItems.length > 0">
+                <form (ngSubmit)="doneItems()">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Done</button>
+                </form>
+            </div>
         </div>
     </div>
     <div *ngIf="show === 'order'">
