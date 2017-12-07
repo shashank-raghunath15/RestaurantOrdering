@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
 import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.service.RecipeItemService;
@@ -40,7 +41,10 @@ public class RecipeItemServiceImpl extends ServiceImpl implements RecipeItemServ
 	public List<RecipeItem> getRecipeItemsNew(Long id) {
 		Restaurant restaurant = getRestaurantRepository().findOne(id);
 		List<RecipeItem> allItems = getRecipeItemRepository().findAll();
-		allItems.removeAll(restaurant.getAvailableItems());
+		for (Item item : restaurant.getAvailableItems()) {
+			if (item instanceof RecipeItem)
+				allItems.remove(item);
+		}
 		return allItems;
 	}
 

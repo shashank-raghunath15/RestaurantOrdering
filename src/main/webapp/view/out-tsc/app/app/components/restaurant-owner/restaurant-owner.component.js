@@ -62,6 +62,7 @@ let RestaurantOwnerComponent = class RestaurantOwnerComponent {
     loadItems(itemType) {
         this.itemType = itemType;
         if (itemType === 'RecipeItem') {
+            this.items = this.recipeItems;
         }
         else if (itemType === 'DrinkItem') {
             this.items = this.drinkItems;

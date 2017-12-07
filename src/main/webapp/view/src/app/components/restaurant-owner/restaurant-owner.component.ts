@@ -74,6 +74,7 @@ export class RestaurantOwnerComponent implements OnInit {
   loadItems(itemType: string) {
     this.itemType = itemType;
     if (itemType === 'RecipeItem') {
+      this.items = this.recipeItems;
     } else if (itemType === 'DrinkItem') {
       this.items = this.drinkItems;
     } else {
