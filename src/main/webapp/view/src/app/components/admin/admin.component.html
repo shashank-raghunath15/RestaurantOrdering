@@ -1,94 +1,108 @@
 <ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-      <h4 class="modal-title">Message</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
-  <div class="modal-body">
-      
-  </div>
-  <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-  </div>
+<div class="modal-header">
+	<h4 class="modal-title">Message</h4>
+	<button type="button" class="close" aria-label="Close"
+		(click)="d('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body"></div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-outline-dark"
+		(click)="c('Close click')">Close</button>
+</div>
 </ng-template>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">
-    Restaurant
-  </a>
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-collapse collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="../admin">Home</a>
-          </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../addOwner">Add Owner</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../addItem">Add Item</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../addRestaurant">Add Restaurant</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/logout">Logout</a>
-      </li>
-    </ul>
-  </div>
+	<a class="navbar-brand" href="#"> Restaurant </a>
+	<button class="navbar-toggler collapsed" type="button"
+		data-toggle="collapse" data-target="#navbarCollapse"
+		aria-controls="navbarCollapse" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="navbar-collapse collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../admin">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../addOwner">Add Owner</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../addItem">Add Item</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../addRestaurant">Add Restaurant</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/logout">Logout</a>
+			</li>
+		</ul>
+	</div>
 </nav>
 <div class="container">
-  <div *ngIf="msg">
-    <h3>{{msg}}</h3>
-  </div>
-  <div *ngIf="show === 'owner'">
-    <form class="form-signin" #addOwner="ngForm" (ngSubmit)="addRestaurantOwner(addOwner.value)">
-      <h4 class="form-signin-heading">Add Restaurant Owner</h4>
-      <label for="username" class="sr-only">Username:</label>
-      <input type="text" name="username" class="form-control col-xs-4" placeholder="Username" required ngModel>
-      <label for="password" class="sr-only">Password:</label>
-      <input type="password" name="password" class="form-control col-xs-4" placeholder="Password" required ngModel>
-      <label for="name" class="sr-only">Name:</label>
-      <input type="text" name="name" class="form-control col-xs-4" placeholder="Name" required ngModel>
-      <label for="address" class="sr-only">Address:</label>
-      <input type="text" name="address" class="form-control col-xs-4" placeholder="Address" required ngModel>
-      <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-    </form>
-  </div>
+	<div *ngIf="msg">
+		<h3>{{msg}}</h3>
+	</div>
+	<div *ngIf="show === 'owner'">
+		<form class="form-signin" #addOwner="ngForm"
+			(ngSubmit)="addRestaurantOwner(addOwner.value)">
+			<h4 class="form-signin-heading">Add Restaurant Owner</h4>
+			<label for="username" class="sr-only">Username:</label>
+			<input type="text" name="username" class="form-control col-xs-4"
+				placeholder="Username" required ngModel>
+			<label for="password" class="sr-only">Password:</label>
+			<input type="password" name="password" class="form-control col-xs-4"
+				placeholder="Password" required ngModel>
+			<label for="name" class="sr-only">Name:</label>
+			<input type="text" name="name" class="form-control col-xs-4"
+				placeholder="Name" required ngModel>
+			<label for="address" class="sr-only">Address:</label>
+			<input type="text" name="address" class="form-control col-xs-4"
+				placeholder="Address" required ngModel>
+			<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+		</form>
+	</div>
 
-  <div *ngIf="show === 'item'">
-    <form class="form-signin" #Item="ngForm" (ngSubmit)="addItem(Item.value)">
-      <h4 class="form-signin-heading">Add Item</h4>
-      <label for="itemType" class="sr-only">Type:</label>
-      <select name="itemType" class="form-control col-xs-4" aria-placeholder="Select Item Type" ngModel>
-        <option value="recipeItem" name="">Recipe</option>
-        <option value="drinkItem" name="">Drink</option>
-        <option value="sideItem" name="">Side</option>
-      </select>
-      <label for="name" class="sr-only">Name:</label>
-      <input type="text" name="name" class="form-control col-xs-4" placeholder="Name" required ngModel>
-      <label for="price" class="sr-only">Price:</label>
-      <input type="number" name="price" class="form-control col-xs-4" placeholder="Price" step="any" required ngModel>
-      <label for="calories" class="sr-only">Calories:</label>
-      <input type="number" name="calories" class="form-control col-xs-4" placeholder="Calories" required ngModel>
-      <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-    </form>
-  </div>
-  <div *ngIf="show === 'restaurant'">
-    <form class="form-signin" #Restaurant="ngForm" (ngSubmit)="addRestaurant(Restaurant.value)">
-      <h4 class="form-signin-heading">Add Restaurant</h4>
-      <label for="name" class="sr-only">Name:</label>
-      <input type="text" class="form-control col-xs-4" name="name" placeholder="Name" required ngModel>
-      <label for="address" class="sr-only">Address:</label>
-      <input type="text" class="form-control col-xs-4" name="address" placeholder="Address" required ngModel>
-      <label for="owner" class="sr-only">Owner:</label>
-      <select name="owner" class="form-control col-xs-4" aria-placeholder="Select Owner" ngModel>
-        <option *ngFor="let owner of owners" [ngValue]="owner">{{owner.name}}</option>
-      </select>
-      <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-    </form>
-  </div>
+	<div *ngIf="show === 'item'">
+		<form class="form-signin" #Item="ngForm"
+			(ngSubmit)="addItem(Item.value)">
+			<h4 class="form-signin-heading">Add Item</h4>
+			<label for="itemType" class="sr-only">Type:</label>
+			<select name="itemType" class="form-control col-xs-4"
+				aria-placeholder="Select Item Type" ngModel>
+				<option value="recipeItem" name="">Recipe</option>
+				<option value="drinkItem" name="">Drink</option>
+				<option value="sideItem" name="">Side</option>
+			</select>
+			<label for="name" class="sr-only">Name:</label>
+			<input type="text" name="name" class="form-control col-xs-4"
+				placeholder="Name" required ngModel>
+			<label for="price" class="sr-only">Price:</label>
+			<input type="number" name="price" class="form-control col-xs-4"
+				placeholder="Price" step="any" required ngModel>
+			<label for="calories" class="sr-only">Calories:</label>
+			<input type="number" name="calories" class="form-control col-xs-4"
+				placeholder="Calories" required ngModel>
+			<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+		</form>
+	</div>
+	<div *ngIf="show === 'restaurant'">
+		<form class="form-signin" #Restaurant="ngForm"
+			(ngSubmit)="addRestaurant(Restaurant.value)">
+			<h4 class="form-signin-heading">Add Restaurant</h4>
+			<label for="name" class="sr-only">Name:</label>
+			<input type="text" class="form-control col-xs-4" name="name"
+				placeholder="Name" required ngModel>
+			<label for="address" class="sr-only">Address:</label>
+			<input type="text" class="form-control col-xs-4" name="address"
+				placeholder="Address" required ngModel>
+			<label for="owner" class="sr-only">Owner:</label>
+			<select name="owner" class="form-control col-xs-4"
+				aria-placeholder="Select Owner" ngModel>
+				<option *ngFor="let owner of owners" [ngValue]="owner">{{owner.name}}</option>
+			</select>
+			<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+		</form>
+	</div>
 </div>

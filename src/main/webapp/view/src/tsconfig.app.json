@@ -1,15 +1,15 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "baseUrl": "./",
-    "module": "ES6",
-    "types": [ ],
-    "target": "ESNext"
-  },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
-  ],
-  "compileOnSave": true
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../out-tsc/app",
+		"baseUrl": "./",
+		"module": "ES6",
+		"types": [],
+		"target": "ESNext"
+	},
+	"exclude": [
+		"test.ts",
+		"**/*.spec.ts"
+	],
+	"compileOnSave": true
 }

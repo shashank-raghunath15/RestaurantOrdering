@@ -11,7 +11,8 @@
 </head>
 <body>
 	<div class="container">
-		<p th:text="${session.person.name}" th:unless="${session == null}"> . </p>
+		<p th:text="${session.person.name}" th:unless="${session == null}">
+			.</p>
 		<a href="/admin/addRestaurantOwner">Add Restaurant Owner</a>
 		<a href="/admin/addRestaurant">Add Restaurant</a>
 		<a href="/admin/addItem">Add Item</a>

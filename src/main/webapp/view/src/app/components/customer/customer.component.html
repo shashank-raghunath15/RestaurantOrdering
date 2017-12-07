@@ -1,102 +1,112 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" href="#">
-        Restaurant
-    </a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="../customer">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="../pastOrders">My Orders</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="../feedBack">FeedBack</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/logout">Logout</a>
-            </li>
-        </ul>
-    </div>
+	<a class="navbar-brand" href="#"> Restaurant </a>
+	<button class="navbar-toggler collapsed" type="button"
+		data-toggle="collapse" data-target="#navbarCollapse"
+		aria-controls="navbarCollapse" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="navbar-collapse collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../customer">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../pastOrders">My Orders</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../feedBack">FeedBack</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/logout">Logout</a>
+			</li>
+		</ul>
+	</div>
 </nav>
 <div class="container">
-    <div *ngIf="show === 'items'">
-        <p>Welcome {{customer.name}}, where would you like to order today?</p>
-        <br/>
-        <p>Select Restaurant</p>
-        <select [(ngModel)]="restaurant" class="form-control col-xs-4" aria-placeholder="Select Restaurant" (change)="loadItems(restaurant)">
-            <option *ngFor="let restaurant of restaurants" [ngValue]="restaurant">{{restaurant.name}}</option>
-        </select>
+	<div *ngIf="show === 'items'">
+		<p>Welcome {{customer.name}}, where would you like to order today?</p>
+		<br />
+		<p>Select Restaurant</p>
+		<select [(ngModel)]="restaurant" class="form-control col-xs-4"
+			aria-placeholder="Select Restaurant" (change)="loadItems(restaurant)">
+			<option *ngFor="let restaurant of restaurants" [ngValue]="restaurant">{{restaurant.name}}</option>
+		</select>
 
-        <div *ngIf='showItems'>
-            <div *ngFor="let item of items">
-                <br/>
-                <form (ngSubmit)="addItemToOrder(Itm.value)" #Itm="ngForm">
-                    <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
-                    <p>{{item.name}}</p>
-                    <p>Calories: {{item.calories}}</p>
-                    <p>Price: ${{item.price}}</p>
-                    <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-                </form>
-            </div>
-            <br/>
-            <div *ngIf="orderItems.length > 0">
-                <form (ngSubmit)="doneItems()">
-                    <button type="submit" class="btn btn-lg btn-success btn-block">Done</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="show === 'order'">
-        <p>Your cart is ready: </p>
-        <div *ngFor="let item of orderItems">
-            <br/>
-            <p>{{item.name}}</p>
-            <p>Calories: {{item.calories}}</p>
-            <p>Price: ${{item.price}}</p>
-        </div>
-        <br/>
-        <p>Total Price: ${{order.totalPrice}}</p>
-        <div *ngIf="order.deal !== null">
-            <p>Discount Applied: ${{order.deal.discountAmount}}</p>
-            <p>Payable Amount: ${{order.totalPrice - order.deal.discountAmount}}</p>
-        </div>
-        <div *ngIf="order.deal === null">
-            <p>Payable Amount: ${{order.totalPrice}}</p>
-        </div>
-        <form (ngSubmit)="orderDone()">
-            <button type="submit" class="btn btn-lg btn-success btn-block">Order</button>
-        </form>
-    </div>
-    <div *ngIf="show === 'pastOrders'">
-        <div *ngFor="let order of pastOrders">
-            <div *ngFor="let item of order.items">
-                <p>{{item.name}}</p>
-            </div>
-            <div *ngIf="order.deal !== null">
-                <p>Restaurant: {{order.restaurant.name}}</p>
-                <p>Discount Applied: ${{order.deal.discountAmount}}</p>
-                <p>Payable Amount: ${{order.totalPrice - order.deal.discountAmount}}</p>
-            </div>
-            <div *ngIf="order.deal === null">
-                <p>Payable Amount: ${{order.totalPrice}}</p>
-            </div>
-            <form (ngSubmit)="reOrder(ord.value)" #ord="ngForm">
-                <input type="hidden" value="order.id" name="id" [(ngModel)]="order.id">
-                <button type="submit" class="btn btn-lg btn-success btn-block">ReOrder</button>
-            </form>
-        </div>
-    </div>
-    <div *ngIf="show === 'feedBack'">
-        <form (ngSubmit)="recordfeedBack(customer.value)" #customer="ngForm" class="form-signin">
-            <h4 class="form-signin-heading">Please provide your feedback below: </h4>
-            <label for="feedBack" class="sr-only">FeedBack:</label>
-            <textarea name="feedBack" rows="10" cols="auto" class="form-control col-xs-4" placeholder="Your feed back goes here..." [(ngModel)]="customer.feedBack"></textarea>
-            <button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
-        </form>
-    </div>
+		<div *ngIf='showItems'>
+			<div *ngFor="let item of items">
+				<br />
+				<form (ngSubmit)="addItemToOrder(Itm.value)" #Itm="ngForm">
+					<input type="hidden" name="id" value="item.id"
+						[(ngModel)]="item.id">
+					<p>{{item.name}}</p>
+					<p>Calories: {{item.calories}}</p>
+					<p>Price: ${{item.price}}</p>
+					<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+				</form>
+			</div>
+			<br />
+			<div *ngIf="orderItems.length > 0">
+				<form (ngSubmit)="doneItems()">
+					<button type="submit" class="btn btn-lg btn-success btn-block">Done</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="show === 'order'">
+		<p>Your cart is ready:</p>
+		<div *ngFor="let item of orderItems">
+			<br />
+			<p>{{item.name}}</p>
+			<p>Calories: {{item.calories}}</p>
+			<p>Price: ${{item.price}}</p>
+		</div>
+		<br />
+		<p>Total Price: ${{order.totalPrice}}</p>
+		<div *ngIf="order.deal !== null">
+			<p>Discount Applied: ${{order.deal.discountAmount}}</p>
+			<p>Payable Amount: ${{order.totalPrice -
+				order.deal.discountAmount}}</p>
+		</div>
+		<div *ngIf="order.deal === null">
+			<p>Payable Amount: ${{order.totalPrice}}</p>
+		</div>
+		<form (ngSubmit)="orderDone()">
+			<button type="submit" class="btn btn-lg btn-success btn-block">Order</button>
+		</form>
+	</div>
+	<div *ngIf="show === 'pastOrders'">
+		<div *ngFor="let order of pastOrders">
+			<div *ngFor="let item of order.items">
+				<p>{{item.name}}</p>
+			</div>
+			<div *ngIf="order.deal !== null">
+				<p>Restaurant: {{order.restaurant.name}}</p>
+				<p>Discount Applied: ${{order.deal.discountAmount}}</p>
+				<p>Payable Amount: ${{order.totalPrice -
+					order.deal.discountAmount}}</p>
+			</div>
+			<div *ngIf="order.deal === null">
+				<p>Payable Amount: ${{order.totalPrice}}</p>
+			</div>
+			<form (ngSubmit)="reOrder(ord.value)" #ord="ngForm">
+				<input type="hidden" value="order.id" name="id"
+					[(ngModel)]="order.id">
+				<button type="submit" class="btn btn-lg btn-success btn-block">ReOrder</button>
+			</form>
+		</div>
+	</div>
+	<div *ngIf="show === 'feedBack'">
+		<form (ngSubmit)="recordfeedBack(customer.value)" #customer="ngForm"
+			class="form-signin">
+			<h4 class="form-signin-heading">Please provide your feedback
+				below:</h4>
+			<label for="feedBack" class="sr-only">FeedBack:</label>
+			<textarea name="feedBack" rows="10" cols="auto"
+				class="form-control col-xs-4"
+				placeholder="Your feed back goes here..."
+				[(ngModel)]="customer.feedBack"></textarea>
+			<button type="submit" class="btn btn-lg btn-success btn-block">Submit</button>
+		</form>
+	</div>
 </div>

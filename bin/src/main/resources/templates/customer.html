@@ -15,18 +15,21 @@
 
 		<div th:each="restaurant : ${restaurants}">
 			<form method="post" action="/customer/order">
-				<input type="hidden" th:value="${restaurant.id}" name="id"></input><br />
+				<input type="hidden" th:value="${restaurant.id}" name="id"></input>
+				<br />
 				<p th:text="${restaurant.name}"></p>
 				<br />
 				<p th:text="${restaurant.address}"></p>
-				<br /> <input type="submit" value="Select"></input><br />
+				<br />
+				<input type="submit" value="Select"></input>
+				<br />
 			</form>
 			<a href="/logout">Logout</a>
 		</div>
-		</div>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-			crossorigin="anonymous"></script>
+	</div>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
 </body>
 </html>

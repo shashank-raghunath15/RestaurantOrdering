@@ -1,71 +1,79 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <a class="navbar-brand" href="#">
-    Restaurant
-  </a>
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-collapse collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../restaurantOwner">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../addItemRestaurant">Add Items</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="../addDealRestaurant">Add Deals</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/logout">Logout</a>
-      </li>
-    </ul>
-  </div>
+	<a class="navbar-brand" href="#"> Restaurant </a>
+	<button class="navbar-toggler collapsed" type="button"
+		data-toggle="collapse" data-target="#navbarCollapse"
+		aria-controls="navbarCollapse" aria-expanded="false"
+		aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="navbar-collapse collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../restaurantOwner">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../addItemRestaurant">Add Items</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="../addDealRestaurant">Add Deals</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" routerLink="/logout">Logout</a>
+			</li>
+		</ul>
+	</div>
 </nav>
 <div class="container">
-  <div *ngIf="msg">
-    <h3>{{msg}}</h3>
-  </div>
-  <div *ngIf="show === 'item'">
-    <select name="itemType" #itemType (change)="loadItems(itemType.value)" class="form-control col-xs-4">
-      <option value="RecipeItem">Recipe</option>
-      <option value="DrinkItem">Drink</option>
-      <option value="SideItem">Side</option>
-    </select>
-    <div *ngFor="let item of items">
-      <form (ngSubmit)="addItemToRestaurant(Item.value)" #Item="ngForm">
-        <input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
-        <h2>{{item.name}}</h2>
-        <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-      </form>
-    </div>
-  </div>
+	<div *ngIf="msg">
+		<h3>{{msg}}</h3>
+	</div>
+	<div *ngIf="show === 'item'">
+		<select name="itemType" #itemType (change)="loadItems(itemType.value)"
+			class="form-control col-xs-4">
+			<option value="RecipeItem">Recipe</option>
+			<option value="DrinkItem">Drink</option>
+			<option value="SideItem">Side</option>
+		</select>
+		<div *ngFor="let item of items">
+			<form (ngSubmit)="addItemToRestaurant(Item.value)" #Item="ngForm">
+				<input type="hidden" name="id" value="item.id" [(ngModel)]="item.id">
+				<h2>{{item.name}}</h2>
+				<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+			</form>
+		</div>
+	</div>
 
-  <div *ngIf="show === 'deal'">
-    <h4>Add Discount Deals</h4>
-    <select name="dealType" #dealType (change)="loadDeals(dealType.value)" class="form-control col-xs-4">
-      <option value="amountDiscountDeal">AmountDiscount</option>
-      <option value="mealDiscountDeal">MealDiscount</option>
-    </select>
-    <div *ngIf="deal === 'amt'">
-      <form class="form-signin" (ngSubmit)="addAmtDealToRestaurant(ADeal.value)" #ADeal="ngForm">
-        <label for="eligibilityAmount" class="sr-only">Eligibility Amount:</label>
-        <input type="number" step="2" name="eligibilityAmount" class="form-control col-xs-4" placeholder="Eligibility Amount" required
-          ngModel>
-        <label for="discountAmount" class="sr-only">Discount Amount:</label>
-        <input type="number" step="2" name="discountAmount" class="form-control col-xs-4" placeholder="Discount Amount" required
-          ngModel>
-        <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-      </form>
-    </div>
-    <div *ngIf="deal === 'meal'">
-      <form class="form-signin" (ngSubmit)="addMealDealToRestaurant(MDeal.value)" #MDeal="ngForm">
-        <label for="discountAmount" class="sr-only">Discount Amount:</label>
-        <input type="number" step="2" name="discountAmount" class="form-control col-xs-4" placeholder="Discount Amount" required
-          ngModel>
-        <button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
-      </form>
-    </div>
-  </div>
+	<div *ngIf="show === 'deal'">
+		<h4>Add Discount Deals</h4>
+		<select name="dealType" #dealType (change)="loadDeals(dealType.value)"
+			class="form-control col-xs-4">
+			<option value="amountDiscountDeal">AmountDiscount</option>
+			<option value="mealDiscountDeal">MealDiscount</option>
+		</select>
+		<div *ngIf="deal === 'amt'">
+			<form class="form-signin"
+				(ngSubmit)="addAmtDealToRestaurant(ADeal.value)" #ADeal="ngForm">
+				<label for="eligibilityAmount" class="sr-only">Eligibility
+					Amount:</label>
+				<input type="number" step="2" name="eligibilityAmount"
+					class="form-control col-xs-4" placeholder="Eligibility Amount"
+					required ngModel>
+				<label for="discountAmount" class="sr-only">Discount Amount:</label>
+				<input type="number" step="2" name="discountAmount"
+					class="form-control col-xs-4" placeholder="Discount Amount"
+					required ngModel>
+				<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+			</form>
+		</div>
+		<div *ngIf="deal === 'meal'">
+			<form class="form-signin"
+				(ngSubmit)="addMealDealToRestaurant(MDeal.value)" #MDeal="ngForm">
+				<label for="discountAmount" class="sr-only">Discount Amount:</label>
+				<input type="number" step="2" name="discountAmount"
+					class="form-control col-xs-4" placeholder="Discount Amount"
+					required ngModel>
+				<button type="submit" class="btn btn-lg btn-success btn-block">Add</button>
+			</form>
+		</div>
+	</div>
 </div>
