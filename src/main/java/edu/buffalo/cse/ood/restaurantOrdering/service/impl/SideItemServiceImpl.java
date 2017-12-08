@@ -1,11 +1,12 @@
 package edu.buffalo.cse.ood.restaurantOrdering.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import edu.buffalo.cse.ood.restaurantOrdering.model.Item;
-import edu.buffalo.cse.ood.restaurantOrdering.model.RecipeItem;
 import edu.buffalo.cse.ood.restaurantOrdering.model.Restaurant;
 import edu.buffalo.cse.ood.restaurantOrdering.model.SideItem;
 import edu.buffalo.cse.ood.restaurantOrdering.service.SideItemService;
@@ -42,9 +43,19 @@ public class SideItemServiceImpl extends ServiceImpl implements SideItemService 
 	public List<SideItem> getSideItemsNew(Long id) {
 		Restaurant restaurant = getRestaurantRepository().findOne(id);
 		List<SideItem> allItems = getSideItemRepository().findAll();
-		for (Item item : restaurant.getAvailableItems()) {
-			if (item instanceof RecipeItem)
-				allItems.remove(item);
+		List<Long> indexList = new ArrayList<>();
+		long index = 0;
+		for (Item item : allItems) {
+			for (Item resItem : restaurant.getAvailableItems()) {
+				if (resItem.getId() == item.getId()) {
+					indexList.add(index);
+				}
+			}
+			index++;
+		}
+		Collections.reverse(indexList);
+		for (Long ind : indexList) {
+			allItems.remove(ind.intValue());
 		}
 		return allItems;
 	}
